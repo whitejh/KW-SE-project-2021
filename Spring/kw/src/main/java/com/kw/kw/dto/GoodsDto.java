@@ -20,4 +20,5 @@ public class GoodsDto {
     private Long price;
     private String description;
     private Long view_count;
+    private byte[] image;
 }

@@ -4,6 +4,7 @@ import com.kw.kw.dto.GoodsDto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Blob;
 
 @Entity
 @Table(name="goods")
@@ -28,11 +29,14 @@ public class Goods extends BaseEntity {
     @Column(name = "view_count")
     private Long view_count;
 
+    @Lob
+    @Column(name="image_blob")
+    private byte[] image_blob;
 
     public void update(GoodsDto dto){
         this.name = dto.getName();
         this.price = dto.getPrice();
-        this.view_count = dto.getView_count();
         this.description = dto.getDescription();
+        this.image_blob = dto.getImage();
     }
 }

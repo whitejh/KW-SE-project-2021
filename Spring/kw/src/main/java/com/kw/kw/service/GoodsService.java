@@ -19,6 +19,7 @@ public interface GoodsService {
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .view_count(dto.getView_count())
+                .image_blob(dto.getImage())
                 .build();
         return entity;
     }
@@ -30,6 +31,7 @@ public interface GoodsService {
                 .name(entity.getName())
                 .description(entity.getDescription())
                 .view_count(entity.getView_count())
+                .image(entity.getImage_blob())
                 .build();
         return dto;
     }
