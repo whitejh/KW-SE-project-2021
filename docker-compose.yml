@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: kw123
+  db_admin:
+    image: dpage/pgadmin4
+    depends_on: [db]
+    ports: [8080:80]
+    environment:
+      PGADMIN_DEFAULT_EMAIL: team4@kw.ac.kr
+      PGADMIN_DEFAULT_PASSWORD: kw123
+
