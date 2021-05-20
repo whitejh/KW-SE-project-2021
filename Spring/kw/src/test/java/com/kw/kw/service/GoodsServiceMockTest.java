@@ -14,10 +14,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.util.ReflectionTestUtils;
-@SpringBootTest
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+
 @ExtendWith(MockitoExtension.class)
-public class GoodsServiceTest {
+public class GoodsServiceMockTest {
     @BeforeEach
     void init(){
         MockitoAnnotations.initMocks(this);
@@ -28,7 +33,8 @@ public class GoodsServiceTest {
     private GoodsServiceImpl goodsServiceImpl;
 
     @Test
-    public void testRegister(){
+    public void testRegister()
+    {
         //given
         GoodsDto goodsDto = createGoodsDto();
         given(goodsRepository.save(any(Goods.class)))
@@ -37,8 +43,9 @@ public class GoodsServiceTest {
         goodsServiceImpl.register(goodsDto);
 
         //then
-        verify(goodsRepository, atLeastOnce()).save(any(Goods.class));
+        verify(goodsRepository, atLeastOnce()).save(any(Goods.class)); //save가 적어도 한 번 호출되는지 검증
     }
+
     private GoodsDto createGoodsDto(){
         return GoodsDto.builder()
                 .id(1L)
@@ -58,5 +65,14 @@ public class GoodsServiceTest {
                 .build();
         ReflectionTestUtils.setField(goods, "id", 1L);
         return goods;
+    }
+    private Goods createGoods()
+    {
+        return Goods.builder()
+                .id(1L)
+                .name("TEST")
+                .description("TEST")
+                .price(1L)
+                .view_count(1L).build();
     }
 }

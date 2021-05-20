@@ -3,8 +3,14 @@ package com.kw.kw.service;
 import com.kw.kw.dto.GoodsDto;
 import com.kw.kw.entity.Goods;
 
+import java.util.List;
+
 public interface GoodsService {
     Long register(GoodsDto dto);
+    Long delete(Long id);
+    Long updateById(Long id, GoodsDto dto);
+    GoodsDto lookup(Long id);
+    List<GoodsDto> findAllGoods();
 
     default Goods dtoToEntity(GoodsDto dto){
         Goods entity = Goods.builder()
