@@ -27,15 +27,15 @@ public class GoodsServiceImpl implements GoodsService{
     }
     @Transactional
     @Override
-    public Long delete(Long id) throws IllegalStateException{
+    public Long delete(Long id) throws IllegalArgumentException{
         Optional<Goods> deleteEntity = Optional.ofNullable(repository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("삭제할 ID가 존재하지 않습니다.")));
+                .orElseThrow(() -> new IllegalArgumentException("삭제할 ID가 존재하지 않습니다.")));
         repository.deleteById(id);
         return id;
     }
     @Transactional
     @Override
-    public Long updateById(Long id, GoodsDto updateDto) throws IllegalStateException{
+    public Long updateById(Long id, GoodsDto updateDto) throws IllegalArgumentException{
         Goods findEntity = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id =" + id));
         findEntity.update(updateDto);
@@ -44,7 +44,7 @@ public class GoodsServiceImpl implements GoodsService{
     }
     @Transactional
     @Override
-    public GoodsDto lookup(Long id) throws IllegalStateException{
+    public GoodsDto lookup(Long id) throws IllegalArgumentException{
         Goods findEntity = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id=" + id));
         GoodsDto dto = GoodsDto.builder()
                 .id(findEntity.getId())

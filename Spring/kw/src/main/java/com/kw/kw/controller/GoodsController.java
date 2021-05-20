@@ -1,9 +1,11 @@
 package com.kw.kw.controller;
 
+import ch.qos.logback.classic.Logger;
 import com.kw.kw.dto.GoodsDto;
 import com.kw.kw.repository.GoodsRepository;
 import com.kw.kw.service.GoodsServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +16,14 @@ import java.util.List;
 public class GoodsController {
     private final GoodsServiceImpl goodsService;
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public String exceptionHandler(IllegalArgumentException ex)
+    {
+        System.out.println("----------에러발생-----------");
+        System.out.println(ex.getMessage());
+        return ex.getMessage();
+    }
     @GetMapping("/{id}")
     public GoodsDto lookup(@PathVariable("id") Long id)
     {
