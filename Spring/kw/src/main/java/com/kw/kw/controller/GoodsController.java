@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/goods")
@@ -16,13 +18,13 @@ import java.util.List;
 public class GoodsController {
     private final GoodsServiceImpl goodsService;
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.NOT_FOUND) //응답 상태코드를 설정할 수 있다.
     @ExceptionHandler(value = IllegalArgumentException.class)
-    public String exceptionHandler(IllegalArgumentException ex)
+    public Map<String, String> exceptionHandler(IllegalArgumentException ex)
     {
-        System.out.println("----------에러발생-----------");
-        System.out.println(ex.getMessage());
-        return ex.getMessage();
+        Map<String, String> errorAttributes = new HashMap<>();
+        errorAttributes.put("message", ex.getMessage());
+        return errorAttributes;
     }
     @GetMapping("/{id}")
     public GoodsDto lookup(@PathVariable("id") Long id)
