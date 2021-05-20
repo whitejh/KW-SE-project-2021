@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS public.purchase_history
         REFERENCES public.member (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE SET NULL
-)
+);
 
 ALTER TABLE public.purchase_history
     OWNER to postgres;
