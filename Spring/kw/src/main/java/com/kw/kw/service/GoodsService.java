@@ -18,7 +18,7 @@ public interface GoodsService {
                 .price(dto.getPrice())
                 .name(dto.getName())
                 .description(dto.getDescription())
-                .view_count(dto.getView_count())
+                .view_count(dto.getView_count() == null ? 0 : dto.getView_count())
                 .image_blob(dto.getImage())
                 .build();
         return entity;

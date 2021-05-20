@@ -65,7 +65,7 @@ public class GoodsController {
                        @ModelAttribute GoodsDto updateDto,
                        @Nullable @RequestParam(value="file", required = false) MultipartFile file) throws IOException {
         if(null == file){
-            log.info("register : 인자로 넘어온 파일이 없습니다.");
+            log.info("update : 인자로 넘어온 파일이 없습니다.");
         }
         else{
             log.info("--------file-------");

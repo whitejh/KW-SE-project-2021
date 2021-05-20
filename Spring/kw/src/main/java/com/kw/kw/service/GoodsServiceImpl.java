@@ -38,7 +38,7 @@ public class GoodsServiceImpl implements GoodsService{
     public Long updateById(Long id, GoodsDto updateDto) throws IllegalArgumentException{
         Goods findEntity = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id =" + id));
-        findEntity.update(updateDto);
+        findEntity.update(updateDto, findEntity.getView_count());
         repository.save(findEntity);
         return id;
     }
@@ -53,7 +53,7 @@ public class GoodsServiceImpl implements GoodsService{
                 .price(findEntity.getPrice())
                 .description(findEntity.getDescription())
                 .image(findEntity.getImage_blob()).build();
-        findEntity.update(dto);
+        findEntity.update(dto, dto.getView_count());
         return dto;
     }
     @Transactional(readOnly = true)
