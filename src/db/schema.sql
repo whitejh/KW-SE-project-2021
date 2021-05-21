@@ -9,33 +9,23 @@ CREATE TABLE IF NOT EXISTS public.member
     PRIMARY KEY (id)
 );
 
-ALTER TABLE public.member
-    OWNER to postgres;
-
-
 CREATE TABLE IF NOT EXISTS public.goods
 (
-    id bigint NOT NULL DEFAULT nextval('goods_id_seq'::regclass),
-    name text COLLATE pg_catalog."default",
-    price integer,
-    description text COLLATE pg_catalog."default",
-    created_at timestamp with time zone,
-    view_count integer,
+    id bigserial NOT NULL,
+    name text NOT NULL,
+    price integer NOT NULL,
+    description text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    view_count integer NOT NULL,
     image_blob bytea,
-    updated_at timestamp with time zone,
-    CONSTRAINT goods_pkey PRIMARY KEY (id)
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE public.goods
-    OWNER to postgres;
-
+    updated_at timestamp with time zone NOT NULL,
+    PRIMARY KEY (id)
+);
 
 CREATE TABLE IF NOT EXISTS public.bookmark
 (
-    goods_id bigint,
-    member_id bigint,
+    goods_id bigint NOT NULL,
+    member_id bigint NOT NULL,
     FOREIGN KEY (goods_id)
         REFERENCES public.goods (id) MATCH SIMPLE
         ON UPDATE SET NULL
@@ -48,16 +38,8 @@ CREATE TABLE IF NOT EXISTS public.bookmark
         NOT VALID
 );
 
-ALTER TABLE public.bookmark
-    OWNER to postgres;
-
-
 CREATE TYPE public.category AS ENUM
     ('BAR', 'FOO', 'BAZ');
-
-ALTER TYPE public.category
-    OWNER TO postgres;
-
 
 CREATE TABLE IF NOT EXISTS public.goods_category
 (
@@ -71,20 +53,16 @@ CREATE TABLE IF NOT EXISTS public.goods_category
         NOT VALID
 );
 
-ALTER TABLE public.goods_category
-    OWNER to postgres;
-
-
 CREATE TABLE IF NOT EXISTS public.purchase_history
 (
-    id bigint NOT NULL DEFAULT nextval('purchase_history_id_seq'::regclass),
+    id bigserial NOT NULL,
     goods_id bigint NOT NULL,
     member_id bigint NOT NULL,
-    content text COLLATE pg_catalog."default" NOT NULL,
+    content text NOT NULL,
     rating smallint NOT NULL,
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
-    CONSTRAINT purchase_history_pkey PRIMARY KEY (id),
+    PRIMARY KEY (id),
     CONSTRAINT purchase_history_goods_id_fkey FOREIGN KEY (goods_id)
         REFERENCES public.goods (id) MATCH SIMPLE
         ON UPDATE CASCADE
@@ -94,6 +72,3 @@ CREATE TABLE IF NOT EXISTS public.purchase_history
         ON UPDATE CASCADE
         ON DELETE SET NULL
 );
-
-ALTER TABLE public.purchase_history
-    OWNER to postgres;
