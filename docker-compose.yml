@@ -13,4 +13,27 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: team4@kw.ac.kr
       PGADMIN_DEFAULT_PASSWORD: kw123
-
+  gw:
+    image: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports: [5000:80, 5050:8080]
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  whoami_foo:
+    image: traefik/whoami
+    command: "--name=foo"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami_foo.rule=PathPrefix(`/foo`)"
+      - "traefik.http.routers.whoami_foo.entrypoints=web"
+  whoami_bar:
+    image: traefik/whoami
+    command: "--name=bar"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami_bar.rule=PathPrefix(`/bar`)"
+      - "traefik.http.routers.whoami_bar.entrypoints=web"
