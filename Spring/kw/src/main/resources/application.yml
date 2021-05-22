@@ -4,13 +4,15 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
   datasource:
-    url: jdbc:h2:tcp://localhost/~/datajpa
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    sql-script-encoding: utf-8
+    platform: postgres
+    url: jdbc:log4jdbc:postgresql://db:5432/postgres
+    username: postgres
+    password: kw123
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
 # show_sql: true
