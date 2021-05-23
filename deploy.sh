@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose -p kw up -d
+docker compose -p kw up -d --remove-orphans

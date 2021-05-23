@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.7'
 
 services:
   db:
@@ -16,12 +16,17 @@ services:
   gw:
     image: traefik
     command:
-      - "--api.insecure=true"
+      - "--log.level=DEBUG"
+      - "--api=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-    ports: [5000:80, 5050:8080]
+      - "--providers.file.filename=/etc/traefik/config.yml"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.websecure.http.tls=true"
+    ports: [443:443]
     volumes:
+      - "./deployments/traefik/certs:/etc/certs:ro"
+      - "./deployments/traefik/config.yml:/etc/traefik/config.yml"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
   whoami_foo:
     image: traefik/whoami
@@ -29,11 +34,13 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami_foo.rule=PathPrefix(`/foo`)"
-      - "traefik.http.routers.whoami_foo.entrypoints=web"
+      - "traefik.http.routers.whoami_foo.entrypoints=websecure"
+      - "traefik.http.routers.whoami_foo.tls=true"
   whoami_bar:
     image: traefik/whoami
     command: "--name=bar"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami_bar.rule=PathPrefix(`/bar`)"
-      - "traefik.http.routers.whoami_bar.entrypoints=web"
+      - "traefik.http.routers.whoami_bar.entrypoints=websecure"
+      - "traefik.http.routers.whoami_bar.tls=true"
