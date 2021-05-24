@@ -5,21 +5,24 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: kw123
+      POSTGRES_PASSWORD: "${PG_PW}"
+    labels:
+      - "traefik.enable=false"
   db_admin:
     image: dpage/pgadmin4
     depends_on: [db]
     ports: [8080:80]
     environment:
-      PGADMIN_DEFAULT_EMAIL: team4@kw.ac.kr
-      PGADMIN_DEFAULT_PASSWORD: kw123
+      PGADMIN_DEFAULT_EMAIL: "${PGA_EMAIL}"
+      PGADMIN_DEFAULT_PASSWORD: "${PGA_PW}"
+    labels:
+      - "traefik.enable=false"
   gw:
     image: traefik
     command:
       - "--log.level=DEBUG"
       - "--api=true"
       - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
       - "--providers.file.filename=/etc/traefik/config.yml"
       - "--entrypoints.websecure.address=:443"
       - "--entrypoints.websecure.http.tls=true"
@@ -28,19 +31,35 @@ services:
       - "./deployments/traefik/certs:/etc/certs:ro"
       - "./deployments/traefik/config.yml:/etc/traefik/config.yml"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-  whoami_foo:
-    image: traefik/whoami
-    command: "--name=foo"
+  traefik-forward-auth:
+    image: thomseddon/traefik-forward-auth:2
+    environment:
+      - PROVIDERS_GOOGLE_CLIENT_ID=${PROVIDERS_GOOGLE_CLIENT_ID}
+      - PROVIDERS_GOOGLE_CLIENT_SECRET=${PROVIDERS_GOOGLE_CLIENT_SECRET}
+      - LOG_LEVEL=debug
+      - SECRET=${SECRET}
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami_foo.rule=PathPrefix(`/foo`)"
-      - "traefik.http.routers.whoami_foo.entrypoints=websecure"
-      - "traefik.http.routers.whoami_foo.tls=true"
-  whoami_bar:
-    image: traefik/whoami
-    command: "--name=bar"
+      - "traefik.http.routers.traefik-forward-auth.rule=PathPrefix(`/auth`)"
+      - "traefik.http.routers.traefik-forward-auth.entrypoints=websecure"
+      - "traefik.http.routers.traefik-forward-auth.middlewares=traefik-forward-auth"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
+      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
+#  whoami_foo:
+#    image: traefik/whoami
+#    command: "--name=foo"
+#    labels:
+#      - "traefik.http.routers.whoami_foo.rule=PathPrefix(`/foo`)"
+#      - "traefik.http.routers.whoami_foo.entrypoints=websecure"
+#      - "traefik.http.routers.whoami_foo.middlewares=traefik-forward-auth"
+  auth:
+    build: ./deployments/auth
+    image: kw_auth
+    environment:
+      LOG_LEVEL: debug
+      OAUTHLIB_INSECURE_TRANSPORT: 1
+    volumes:
+      - "./deployments/traefik/certs:/etc/certs:ro"
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami_bar.rule=PathPrefix(`/bar`)"
-      - "traefik.http.routers.whoami_bar.entrypoints=websecure"
-      - "traefik.http.routers.whoami_bar.tls=true"
+      - "traefik.http.routers.auth.rule=PathPrefix(`/_oauth`)"
+      - "traefik.http.routers.auth.entrypoints=websecure"
