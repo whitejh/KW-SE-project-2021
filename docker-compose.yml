@@ -17,49 +17,41 @@ services:
       PGADMIN_DEFAULT_PASSWORD: "${PGA_PW}"
     labels:
       - "traefik.enable=false"
+  session_db:
+    image: redis
+    ports: [6379:6379]
+    command:
+      - "--appendonly yes"
+    labels:
+      - "traefik.enable=false"
   gw:
     image: traefik
     command:
       - "--log.level=DEBUG"
+      - "--accesslog=true"
       - "--api=true"
       - "--providers.docker=true"
       - "--providers.file.filename=/etc/traefik/config.yml"
       - "--entrypoints.websecure.address=:443"
       - "--entrypoints.websecure.http.tls=true"
+      #- "--entrypoints.websecure.forwardedHeaders.insecure"
     ports: [443:443]
     volumes:
       - "./deployments/traefik/certs:/etc/certs:ro"
       - "./deployments/traefik/config.yml:/etc/traefik/config.yml"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-  traefik-forward-auth:
-    image: thomseddon/traefik-forward-auth:2
-    environment:
-      - PROVIDERS_GOOGLE_CLIENT_ID=${PROVIDERS_GOOGLE_CLIENT_ID}
-      - PROVIDERS_GOOGLE_CLIENT_SECRET=${PROVIDERS_GOOGLE_CLIENT_SECRET}
-      - LOG_LEVEL=debug
-      - SECRET=${SECRET}
-    labels:
-      - "traefik.http.routers.traefik-forward-auth.rule=PathPrefix(`/auth`)"
-      - "traefik.http.routers.traefik-forward-auth.entrypoints=websecure"
-      - "traefik.http.routers.traefik-forward-auth.middlewares=traefik-forward-auth"
-      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
-      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
-      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
-#  whoami_foo:
-#    image: traefik/whoami
-#    command: "--name=foo"
-#    labels:
-#      - "traefik.http.routers.whoami_foo.rule=PathPrefix(`/foo`)"
-#      - "traefik.http.routers.whoami_foo.entrypoints=websecure"
-#      - "traefik.http.routers.whoami_foo.middlewares=traefik-forward-auth"
+  mock_main:
+      image: containous/whoami
+      command: "--name=mock_main"
+      labels:
+        - "traefik.http.routers.mock_main.rule=Path(`/main`)"
   auth:
     build: ./deployments/auth
     image: kw_auth
     environment:
-      LOG_LEVEL: debug
+      LOG_LEVEL: ${LOG_LEVEL}
       OAUTHLIB_INSECURE_TRANSPORT: 1
-    volumes:
-      - "./deployments/traefik/certs:/etc/certs:ro"
     labels:
-      - "traefik.http.routers.auth.rule=PathPrefix(`/_oauth`)"
-      - "traefik.http.routers.auth.entrypoints=websecure"
+      - "traefik.http.middlewares.strip-auth.stripprefix.prefixes=/auth"
+      - "traefik.http.routers.auth.rule=PathPrefix(`/auth`)"
+      - "traefik.http.routers.auth.middlewares=strip-auth"
