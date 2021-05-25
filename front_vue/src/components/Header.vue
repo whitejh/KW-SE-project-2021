@@ -68,11 +68,11 @@
                 <a>1:1 문의</a>
               </router-link> -->
 
-              <router-link :to="{ name: 'features' }" tag="li" active-class="sale-not" exact>
+              <router-link to="/login" tag="li" active-class="sale-not" exact>
                 <a>로그인</a>
               </router-link>
 
-              <router-link :to="{ name: 'features' }" tag="li" active-class="sale-not" exact>
+              <router-link to="/signup" tag="li" active-class="sale-not" exact>
                 <a>회원가입</a>
               </router-link>
             </ul>
