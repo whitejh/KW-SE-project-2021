@@ -4,10 +4,10 @@
       <table class="table-shopping-cart">
         <tr class="table-head">
           <th class="column-1"></th>
-          <th class="column-2">Product</th>
-          <th class="column-3">Price</th>
-          <th class="column-4 p-l-70">Quantity</th>
-          <th class="column-5">Total</th>
+          <th class="column-2">상품</th>
+          <th class="column-3">가격</th>
+          <th class="column-4 p-l-70">수량</th>
+          <th class="column-5">전체 가격</th>
         </tr>
 
         <template v-for="item in cartItems">
@@ -18,7 +18,7 @@
               </div>
             </td>
             <td class="column-2">{{ item.title }}</td>
-            <td class="column-3">${{ item.price }}</td>
+            <td class="column-3">{{ item.price }}원</td>
             <td class="column-4">
               <div class="flex-w bo5 of-hidden w-size17">
                 <button
@@ -43,7 +43,7 @@
                 </button>
               </div>
             </td>
-            <td class="column-5">${{ item.price * item.qty }}</td>
+            <td class="column-5">{{ item.price * item.qty }}원</td>
             <!-- 상품가격 * 개수-->
           </tr>
         </template>

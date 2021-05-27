@@ -55,8 +55,12 @@
                 <a>Shop</a>
               </router-link>
 
+              <router-link :to="{ name: 'create' }" tag="li" active-class="sale-noti" exact>
+                <a>상품 추가</a>
+              </router-link>
+
               <router-link :to="{ name: 'cart' }" tag="li" active-class="sale-noti" exact>
-                <a>상품 구매 내역(장바구니)</a>
+                <a>장바구니</a>
               </router-link>
 
               <!-- 구현할 것들 -->
@@ -110,14 +114,14 @@
                       </router-link>
 
                       <span class="header-cart-item-info">
-                        {{ product.qty }} x ${{ product.price }}
+                        {{ product.qty }} x {{ product.price }}원
                       </span>
                     </div>
                   </li>
                 </template>
               </ul>
 
-              <div class="header-cart-total">Total : {{ totalCartPrice }} 원</div>
+              <div class="header-cart-total">Total : {{ totalCartPrice }}원</div>
 
               <div class="header-cart-buttons">
                 <div class="header-cart-wrapbtn">
@@ -126,14 +130,18 @@
                     to="/cart"
                     class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4"
                   >
-                    View Cart
+                    장바구니 보기
                   </router-link>
                 </div>
 
                 <div class="header-cart-wrapbtn">
                   <!-- Button -->
-                  <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                    Check Out
+                  <a
+                    href="#"
+                    class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4"
+                    @click="clearCart"
+                  >
+                    장바구니 비우기
                   </a>
                 </div>
               </div>
@@ -274,6 +282,11 @@ export default {
       totalCartPrice: 'totalPrice',
       totalCartQty: 'totalQty',
     }),
+  },
+  methods: {
+    clearCart() {
+      this.$store.dispatch('cart/clearCart');
+    },
   },
 };
 </script>

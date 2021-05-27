@@ -7,9 +7,7 @@
       <h2 class="l-text2 t-center">
         2021년 여름 남자 옷 모음
       </h2>
-      <h2 class="l-text2 t-center">
-        반팔
-      </h2>
+      <!-- <h2 class="l-text2 t-center"></h2> -->
     </section>
 
     <section class="bgwhite p-t-55 p-b-65">
@@ -27,7 +25,7 @@
 
               <PriceFilter />
 
-              <ColorFilter />
+              <!-- <ColorFilter /> -->
 
               <div class="search-product pos-relative bo4 of-hidden">
                 <input
@@ -53,6 +51,7 @@
             </div>
 
             <!-- Product -->
+            <FeaturedProductList />
             <ProductList />
 
             <!-- Pagination -->
@@ -80,15 +79,17 @@ import { mapState } from 'vuex';
 
 import CategoryFilter from '@/components/shop/CategoryFilter.vue';
 import PriceFilter from '@/components/shop/PriceFilter.vue';
-import ColorFilter from '@/components/shop/ColorFilter.vue';
+// import ColorFilter from '@/components/shop/ColorFilter.vue';
 
+import FeaturedProductList from '@/components/home/FeaturedProductList.vue';
 import ProductList from '@/components/shop/ProductList.vue';
 
 export default {
   components: {
     CategoryFilter,
     PriceFilter,
-    ColorFilter,
+    // ColorFilter,
+    FeaturedProductList,
     ProductList,
   },
   computed: {

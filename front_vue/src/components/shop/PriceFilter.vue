@@ -17,7 +17,7 @@
       </div>
 
       <div class="s-text3 p-t-10 p-b-10">
-        Range: <span id="value-lower">610</span>원 ~ <span id="value-upper">980</span>원
+        Range: <span id="value-lower">10000</span>원 ~ <span id="value-upper">80000</span>원
       </div>
     </div>
   </div>

@@ -5,7 +5,7 @@
       style="background-image: url(https://picsum.photos/1920/239/?image=864);"
     >
       <h2 class="l-text2 t-center">
-        Cart
+        구매자의 장바구니 (상품 구매)
       </h2>
     </section>
 
@@ -23,7 +23,7 @@
               class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4"
               @click="clearCart"
             >
-              Clear Cart
+              장바구니 비우기
             </button>
           </div>
         </div>

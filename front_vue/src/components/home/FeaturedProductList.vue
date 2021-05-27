@@ -3,7 +3,7 @@
     <div class="container">
       <div class="sec-title p-b-60">
         <h3 class="m-text5 t-center">
-          Featured Products (주요상품 및 상품 추천)
+          Featured Products (주요상품)
         </h3>
       </div>
 

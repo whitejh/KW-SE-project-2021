@@ -9,7 +9,7 @@
 </template>
 <script>
 import Header from '@/components/Header.vue'; // @는 src
-import Footer from '@/components/Footer.vue';
+// import Footer from '@/components/Footer.vue';
 
 export default {
   components: {
@@ -22,7 +22,4 @@ export default {
 };
 </script>
 
-<style>
-@import './css/reset.css';
-@import './css/common.css';
-</style>
+<style></style>

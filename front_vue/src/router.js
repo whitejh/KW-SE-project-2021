@@ -4,7 +4,9 @@ import LoginPage from '@/views/LoginPage.vue';
 import SignupPage from '@/views/SignupPage.vue';
 import Home from './views/Home.vue';
 import Shop from './views/Shop.vue';
-import Cart from './views/Features';
+
+import ProductCreate from './views/ProductCreate.vue';
+import Cart from './views/Cart.vue';
 
 Vue.use(Router);
 
@@ -35,6 +37,11 @@ export default new Router({
       path: '/shop',
       name: 'shop',
       component: Shop,
+    },
+    {
+      path: '/create',
+      name: 'create',
+      component: ProductCreate,
     },
     {
       path: '/cart',

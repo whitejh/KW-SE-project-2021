@@ -3,14 +3,14 @@
     <SlideBanner />
     <BestProductList />
     <CountdownBanner />
-    <FeaturedProductList />
+    <!-- <FeaturedProductList /> -->
   </div>
 </template>
 
 <script>
 import SlideBanner from '@/components/home/SlideBanner.vue';
 import BestProductList from '@/components/home/BestProductList.vue';
-import FeaturedProductList from '@/components/home/FeaturedProductList.vue';
+// import FeaturedProductList from '@/components/home/FeaturedProductList.vue';
 import CountdownBanner from '@/components/home/CountdownBanner.vue';
 
 export default {
@@ -18,7 +18,7 @@ export default {
   components: {
     SlideBanner,
     BestProductList,
-    FeaturedProductList,
+    // FeaturedProductList,
     CountdownBanner,
   },
 };

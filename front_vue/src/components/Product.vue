@@ -34,7 +34,7 @@
           {{ product.title }}
         </router-link>
 
-        <span class="block2-price m-text6 p-r-5"> ${{ product.price }} </span>
+        <span class="block2-price m-text6 p-r-5"> {{ product.price }}원 </span>
       </div>
     </div>
   </div>
@@ -42,6 +42,7 @@
 
 <script>
 export default {
+  // props: ['product'],
   props: {
     product: {
       type: Object,
