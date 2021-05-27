@@ -23,6 +23,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+	implementation group: 'com.vladmihalcea', name: 'hibernate-types-52', version: '2.11.1'
 	runtimeOnly 'com.h2database:h2'
 	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.16'
 	compile group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'

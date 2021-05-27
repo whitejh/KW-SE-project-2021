@@ -3,6 +3,8 @@ package com.kw.kw.entity;
 import com.kw.kw.dto.GoodsDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Blob;
@@ -35,6 +37,8 @@ public class Goods extends BaseEntity {
     @Column(name="image_blob")
     private byte[] image_blob;
 
+    @OneToOne(mappedBy = "goods", cascade = CascadeType.ALL, orphanRemoval = true)
+    private GoodsCategory goodsCategory;
     public void update(GoodsDto dto, Long view_count){
         this.name = dto.getName();
         this.price = dto.getPrice();
