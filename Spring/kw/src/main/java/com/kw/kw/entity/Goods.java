@@ -39,6 +39,10 @@ public class Goods extends BaseEntity {
 
     @OneToOne(mappedBy = "goods", cascade = CascadeType.ALL, orphanRemoval = true)
     private GoodsCategory goodsCategory;
+
+    @OneToOne(mappedBy = "goods", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Bookmark bookmark;
+
     public void update(GoodsDto dto, Long view_count){
         this.name = dto.getName();
         this.price = dto.getPrice();
