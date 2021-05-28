@@ -6,10 +6,10 @@
 모든 명령어는 repo root 경로에서 실행되는것을 가정한다.
 
 1. /etc/hosts에 `127.0.0.1 local.kw-se-2021.com` 추가
-2. `mkcert -cert-file deployments/traefik/certs/local-cert.pem -key-file deployments/traefik/certs/local-key.pem "local.kw-se-2021.com"`
+2. `mkcert -cert-file deployments/gw/certs/local-cert.pem -key-file deployments/gw/certs/local-key.pem "local.kw-se-2021.com"`
    로 인증서 발급
 3. `./deploy.sh`로 배포
-4. 스프링의 경우 구동하기 위해 kw-0.0.1-SNAPSHOT.jar와 같이 *.jar 파일이 필요함, 해당 파일을 /build/libs에 위치시켜야 함
+4. 스프링의 경우 구동하기 위해 kw-0.0.1-SNAPSHOT.jar와 같이 *.jar 파일이 필요함, 해당 파일을 deployments/controller/kw/build/libs에 위치시켜야 함
 
 # pgAdmin (postgres dbms admin) 접속
 

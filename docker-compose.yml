@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  db:
+  model:
     image: postgres
     restart: always
     environment:
@@ -9,7 +9,7 @@ services:
     labels:
       - "traefik.enable=false"
     volumes:
-      - ./deployments/db/dummydata:/var/lib/postgresql/dummydata
+      - ./deployments/model/dummydata:/var/lib/postgresql/dummydata
   db_admin:
     image: dpage/pgadmin4
     depends_on: [ db ]
