@@ -5,8 +5,7 @@ import com.kw.kw.dto.GoodsDto;
 import com.kw.kw.repository.GoodsRepository;
 import com.kw.kw.service.GoodsServiceImpl;
 import com.sun.istack.Nullable;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -36,6 +35,13 @@ public class GoodsController {
     }
 
     @ApiOperation(value = "상품 상세 조회", notes = "특정 상품을 상세 조회합니다.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "조회할 상품의 아이디", required = true)
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "조회 성공"),
+            @ApiResponse(code = 404, message = "존재하지 않는 ID")
+    })
     @GetMapping("/goods/{id}")
     public GoodsDto lookup(@PathVariable("id") Long id)
     {
@@ -44,6 +50,9 @@ public class GoodsController {
     }
 
     @ApiOperation(value = "전체 상품 조회", notes = "모든 상품을 조회합니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "조회 성공"),
+    })
     @GetMapping("/goods")
     public List<GoodsDto> findAllGoods()
     {
@@ -52,6 +61,13 @@ public class GoodsController {
     }
 
     @ApiOperation(value = "상품 등록", notes = "상품을 등록합니다.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "등록할 상품의 이름", required = true),
+            @ApiImplicitParam(name = "description", value = "등록할 상품의 설명", required = true),
+            @ApiImplicitParam(name = "price", value = "등록할 상품의 가격", required = true),
+            @ApiImplicitParam(name = "image", value = "등록할 상품의 이미지", required = false),
+            @ApiImplicitParam(name = "view_count", value = "조회수", readOnly = true)
+    })
     @PostMapping("/goods")
     public Long register(@ModelAttribute GoodsDto dto,
                          @Nullable @RequestParam(value="file", required = false) MultipartFile file) throws IOException {
@@ -67,6 +83,17 @@ public class GoodsController {
     }
 
     @ApiOperation(value = "등록한 상품 수정", notes = "등록한 상품을 수정합니다.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "수정할 상품의 이름", required = true),
+            @ApiImplicitParam(name = "description", value = "수정할 상품의 설명", required = true),
+            @ApiImplicitParam(name = "price", value = "수정할 상품의 가격", required = true),
+            @ApiImplicitParam(name = "image", value = "수정할 상품의 이미지", required = false),
+            @ApiImplicitParam(name = "view_count", value = "조회수", readOnly = true)
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "수정 성공"),
+            @ApiResponse(code = 404, message = "존재하지 않는 ID")
+    })
     @PutMapping("/goods/{id}")
     public Long update(@PathVariable Long id,
                        @ModelAttribute GoodsDto updateDto,
@@ -83,6 +110,13 @@ public class GoodsController {
     }
 
     @ApiOperation(value = "등록한 상품 삭제", notes = "등록한 상품을 삭제합니다.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "삭제할 상품의 ID", required = true)
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "삭제 성공"),
+            @ApiResponse(code = 404, message = "존재하지 않는 ID")
+    })
     @DeleteMapping("/goods/{id}")
     public Long delete(@PathVariable Long id)
     {
