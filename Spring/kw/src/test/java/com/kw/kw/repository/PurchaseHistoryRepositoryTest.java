@@ -51,4 +51,37 @@ public class PurchaseHistoryRepositoryTest {
         List<PurchaseHistory> findPurchases = purchaseHistoryRepository.findAll();
         Assertions.assertEquals(findPurchases.size(), 1);
     }
+    @Test
+    public void test_구매내역_조회(){
+        String MemberId = "AAA";
+        int size = 3;
+        //given
+        Member member = Member.builder()
+                .id(MemberId)
+                .phone_number("010-1234-5678")
+                .point(100L)
+                .password("q1w2e3r4")
+                .address("AAA")
+                .BlockStatus(false).build();
+        memberRepository.save(member);
+        for(int i = 0; i < size; i++){
+            Goods goods = Goods.builder().price(100L)
+                    .view_count(0L)
+                    .description("AAA" + i)
+                    .name("AAA" + i)
+                    .build();
+            goodsRepository.save(goods);
+            PurchaseHistory purchaseHistory = PurchaseHistory.builder()
+                    .member(member)
+                    .goods(goods)
+                    .rating(3L)
+                    .content("test").build();
+            purchaseHistoryRepository.saveAndFlush(purchaseHistory);
+        }
+        System.out.println("------test_구매내역_등록------");
+        //when
+        List<PurchaseHistory> findHistorys = purchaseHistoryRepository.findPurchaseHistoryByMemberId(MemberId);
+        //then
+        Assertions.assertEquals(findHistorys.size(), size);
+    }
 }

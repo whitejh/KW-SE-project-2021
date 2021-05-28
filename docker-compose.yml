@@ -55,3 +55,6 @@ services:
       - "traefik.http.middlewares.strip-auth.stripprefix.prefixes=/auth"
       - "traefik.http.routers.auth.rule=PathPrefix(`/auth`)"
       - "traefik.http.routers.auth.middlewares=strip-auth"
+  spring:
+    build: ./Spring/kw
+    ports: [8081:8080]

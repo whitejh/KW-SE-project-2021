@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-/*@TypeDefs({
+@TypeDefs({
       @TypeDef(
               typeClass = StringArrayType.class,
               defaultForType = String[].class
@@ -34,7 +34,7 @@ import java.util.List;
                         )
                 }
         )
-})*/
+})
 public class GoodsCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +44,6 @@ public class GoodsCategory {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "goods_id")
     private Goods goods;
-    /*@Column(name = "category",
-    columnDefinition = "category[]")
-    private Category[] category;*/
+    @Column(name = "category", columnDefinition = "category")
+    private Category category;
 }

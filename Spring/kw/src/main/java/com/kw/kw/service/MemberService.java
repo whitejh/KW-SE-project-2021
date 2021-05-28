@@ -9,7 +9,6 @@ public interface MemberService {
     default Member dtoToEntity(MemberDto dto){
         Member entity = Member.builder()
                 .id(dto.getId())
-                .password(dto.getPassword())
                 .address(dto.getAddress())
                 .BlockStatus(dto.getBlockStatus())
                 .phone_number(dto.getPhone_number())
@@ -20,7 +19,6 @@ public interface MemberService {
     default MemberDto EntityToDto(Member entity){
         MemberDto dto = MemberDto.builder()
                 .id(entity.getId())
-                .password(entity.getPassword())
                 .address(entity.getAddress())
                 .BlockStatus(entity.getBlockStatus())
                 .phone_number(entity.getPhone_number())
