@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: "${PG_PW}"
     labels:
       - "traefik.enable=false"
+    volumes:
+      - ./src/dummydata:/var/lib/postgresql/dummydata
   db_admin:
     image: dpage/pgadmin4
     depends_on: [ db ]
