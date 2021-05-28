@@ -14,7 +14,7 @@
 # pgAdmin (postgres dbms admin) 접속
 
 1. http://localhost:8080 에 접속
-2. team4@kw.ac.kr / kw123 으로 로그인
+2. postgres@kw.ac.kr / kw123 으로 로그인
 3. Dashboard -> Quick Link -> Add New Server 클릭
 4. General -> Name 은 원하는걸로 (ex: kw)
 5. Connection -> Host Name은 DB 컨테이너 이름 (여기서는 kw_db_1), Username은 postgres, Password는 kw123
