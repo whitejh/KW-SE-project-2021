@@ -5,6 +5,8 @@ import com.kw.kw.dto.GoodsDto;
 import com.kw.kw.repository.GoodsRepository;
 import com.kw.kw.service.GoodsServiceImpl;
 import com.sun.istack.Nullable;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import java.util.Map;
 @RequestMapping("/goods")
 @RequiredArgsConstructor
 @Log4j2
+@Api(tags = {"Goods"})
 public class GoodsController {
     private final GoodsServiceImpl goodsService;
 
@@ -32,6 +35,7 @@ public class GoodsController {
         errorAttributes.put("message", ex.getMessage());
         return errorAttributes;
     }
+    @ApiOperation(value = "전체 상품 조회", notes = "모든 상품을 조회합니다.")
     @GetMapping("/{id}")
     public GoodsDto lookup(@PathVariable("id") Long id)
     {
