@@ -21,7 +21,6 @@ import java.util.Map;
 
 @Api(tags = {"1. Goods"})
 @RestController
-@RequestMapping("/goods")
 @RequiredArgsConstructor
 @Log4j2
 public class GoodsController {
@@ -35,7 +34,9 @@ public class GoodsController {
         errorAttributes.put("message", ex.getMessage());
         return errorAttributes;
     }
-    @GetMapping("/{id}")
+
+    @ApiOperation(value = "상품 상세 조회", notes = "특정 상품을 상세 조회합니다.")
+    @GetMapping("/goods/{id}")
     public GoodsDto lookup(@PathVariable("id") Long id)
     {
         GoodsDto findDto = goodsService.lookup(id);
@@ -43,14 +44,15 @@ public class GoodsController {
     }
 
     @ApiOperation(value = "전체 상품 조회", notes = "모든 상품을 조회합니다.")
-    @GetMapping("/")
+    @GetMapping("/goods")
     public List<GoodsDto> findAllGoods()
     {
         List<GoodsDto> findGoods = goodsService.findAllGoods();
         return findGoods;
     }
 
-    @PostMapping("/")
+    @ApiOperation(value = "상품 등록", notes = "상품을 등록합니다.")
+    @PostMapping("/goods")
     public Long register(@ModelAttribute GoodsDto dto,
                          @Nullable @RequestParam(value="file", required = false) MultipartFile file) throws IOException {
         if(null == file){
@@ -64,7 +66,8 @@ public class GoodsController {
         return goodsService.register(dto);
     }
 
-    @PutMapping("/{id}")
+    @ApiOperation(value = "등록한 상품 수정", notes = "등록한 상품을 수정합니다.")
+    @PutMapping("/goods/{id}")
     public Long update(@PathVariable Long id,
                        @ModelAttribute GoodsDto updateDto,
                        @Nullable @RequestParam(value="file", required = false) MultipartFile file) throws IOException {
@@ -79,7 +82,8 @@ public class GoodsController {
         return goodsService.updateById(id, updateDto);
     }
 
-    @DeleteMapping("/{id}")
+    @ApiOperation(value = "등록한 상품 삭제", notes = "등록한 상품을 삭제합니다.")
+    @DeleteMapping("/goods/{id}")
     public Long delete(@PathVariable Long id)
     {
         return goodsService.delete(id);
