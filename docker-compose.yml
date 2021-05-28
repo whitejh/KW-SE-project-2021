@@ -9,10 +9,10 @@ services:
     labels:
       - "traefik.enable=false"
     volumes:
-      - ./deployments/model/dummydata:/var/lib/postgresql/dummydata
+      - ./deployments/model/dummy_data:/var/lib/postgresql/dummydata
   db_admin:
     image: dpage/pgadmin4
-    depends_on: [ db ]
+    depends_on: [ model ]
     ports: [ 8080:80 ]
     environment:
       PGADMIN_DEFAULT_EMAIL: "${PGA_EMAIL}"
@@ -27,7 +27,7 @@ services:
     labels:
       - "traefik.enable=false"
   gw:
-    image: gw
+    image: traefik:v2.4
     command:
       - "--log.level=DEBUG"
       - "--accesslog=true"
@@ -52,5 +52,4 @@ services:
       - "traefik.http.routers.auth.rule=PathPrefix(`/auth`)"
       - "traefik.http.routers.auth.middlewares=strip-auth"
   controller:
-    build: ./controller/kw
-    ports: [ 443:8080 ]
+    build: ./deployments/controller/kw
