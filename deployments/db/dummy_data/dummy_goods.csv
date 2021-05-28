@@ -1,0 +1,7 @@
+,name,price,descriptionprice,create_at,view_count,image_blob,updated_at
+1,shirt,100,AAA,2021-05-28,0,NULL,2021-05-28
+2,shirt,1000,BBB,2021-05-28,0,NULL,2021-05-28
+3,shirt,100000,CCC,2021-05-28,0,NULL,2021-05-28
+4,shirt,100,AAA,2021-05-28,0,NULL,2021-05-28
+5,shirt,1000,BBB,2021-05-28,0,NULL,2021-05-28
+6,shirt,100000,CCC,2021-05-28,0,NULL,2021-05-28
