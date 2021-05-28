@@ -5,7 +5,8 @@
 모든 명령어는 repo root 경로에서 실행되는것을 가정한다.
 1. `docker-compose -p kw up -d`로 db와 db_admin container를 배포
 2. `docker exec -i kw_db_1 psql -U postgres -d postgres -a <src/db/schema.sql`로 본 프로젝트의 DB 스키마 반영
-3. reverse proxy, api, TODO...
+3. 스프링의 경우 구동하기 위해 kw-0.0.1-SNAPSHOT.jar와 같이 *.jar 파일이 필요함, 해당 파일을 /build/libs에 위치시켜야 함
+4. reverse proxy, api, TODO...
 
 # DB admin 접속하는법
 Deploy의 docker-compose
