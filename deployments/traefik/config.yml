@@ -10,8 +10,8 @@ http:
     dashboard:
       rule: "Host(`local.kw-se-2021.com`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
       service: api@internal
-      entryPoints: [websecure]
-      middlewares: [auth]
+      entryPoints: [ websecure ]
+      middlewares: [ auth ]
   middlewares:
     auth:
       basicAuth:
