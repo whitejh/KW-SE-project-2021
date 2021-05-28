@@ -1,14 +1,13 @@
-from fastapi import FastAPI, Response, Request
-from fastapi.responses import RedirectResponse
-from requests_oauthlib import OAuth2Session
+import time
+from typing import Optional
+
 import jwt
+import redis
 import requests
 from cryptography.x509 import load_pem_x509_certificate
-import redis
-
-import logging
-import json
-import time
+from fastapi import FastAPI, Request, Cookie
+from fastapi.responses import RedirectResponse
+from requests_oauthlib import OAuth2Session
 
 app = FastAPI(root_path='/auth')
 
@@ -18,14 +17,20 @@ redirect_uri = 'https://local.kw-se-2021.com/auth/session'
 scope = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']
 oauth = OAuth2Session(client_id, redirect_uri=redirect_uri, scope=scope)
 
-#TODO CSRF mitigation
+# TODO CSRF mitigation
 authorization_url, state = oauth.authorization_url(
-        'https://accounts.google.com/o/oauth2/auth',
-        # access_type and prompt are Google specific extra
-        # parameters.
-        access_type="offline", prompt="select_account")
+    'https://accounts.google.com/o/oauth2/auth',
+    # access_type and prompt are Google specific extra
+    # parameters.
+    access_type="offline", prompt="select_account")
 
 r = redis.Redis(host='kw_session_db_1', port=6379, db=0)
+
+
+@app.get("/whoami")
+def auth_whoami(kw_id_token: Optional[str] = Cookie(None)):
+    return {'email': r.get(kw_id_token) if kw_id_token else repr(kw_id_token)}
+
 
 @app.get("/session")
 def auth_session(request: Request):
@@ -41,13 +46,14 @@ def auth_session(request: Request):
     cert_str = requests.get('https://www.googleapis.com/oauth2/v1/certs').json()[header['kid']].encode()
     cert_obj = load_pem_x509_certificate(cert_str)
     pub_key = cert_obj.public_key()
-    
+
     payload = jwt.decode(token['id_token'], pub_key, algorithms=['RS256'], audience=client_id)
-    
+
     if payload['iat'] < time.time() < payload['exp']:
         if payload['email_verified']:
             r.set(payload['sub'], payload['email'])
             response = RedirectResponse('/main')
+            # TODO hash id and concatante it with the id
             response.set_cookie('kw_access_token', token['access_token'], max_age=token['expires_in'])
             response.set_cookie('kw_id_token', payload['sub'], max_age=token['expires_in'])
             return response
@@ -55,6 +61,7 @@ def auth_session(request: Request):
             raise jwt.PyJWTError('email_verified must be true')
     else:
         raise jwt.PyJWTError('this token is invalid at present')
+
 
 @app.get("/")
 def auth():
