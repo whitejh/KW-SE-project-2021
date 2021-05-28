@@ -49,10 +49,10 @@ def auth_session(request: Request):
 
     payload = jwt.decode(token['id_token'], pub_key, algorithms=['RS256'], audience=client_id)
 
-    if payload['iat'] < time.time() < payload['exp']:
+    if payload['iat']-60 < time.time() < payload['exp']:
         if payload['email_verified']:
             r.set(payload['sub'], payload['email'])
-            response = RedirectResponse('/main')
+            response = RedirectResponse('/goods/')
             # TODO hash id and concatante it with the id
             response.set_cookie('kw_access_token', token['access_token'], max_age=token['expires_in'])
             response.set_cookie('kw_id_token', payload['sub'], max_age=token['expires_in'])
@@ -60,7 +60,7 @@ def auth_session(request: Request):
         else:
             raise jwt.PyJWTError('email_verified must be true')
     else:
-        raise jwt.PyJWTError('this token is invalid at present')
+        raise jwt.PyJWTError(f'this token is invalid at present {payload["iat"]} < {time.time()} < {payload["exp"]}')
 
 
 @app.get("/")
