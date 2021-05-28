@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Blob;
@@ -35,13 +36,8 @@ public class Goods extends BaseEntity {
 
     @Lob
     @Column(name="image_blob")
+    @Type(type="org.hibernate.type.BinaryType")
     private byte[] image_blob;
-
-    @OneToOne(mappedBy = "goods", cascade = CascadeType.ALL, orphanRemoval = true)
-    private GoodsCategory goodsCategory;
-
-    @OneToOne(mappedBy = "goods", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Bookmark bookmark;
 
     public void update(GoodsDto dto, Long view_count){
         this.name = dto.getName();

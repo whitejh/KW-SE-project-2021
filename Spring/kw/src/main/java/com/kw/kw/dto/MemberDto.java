@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class MemberDto {
-    private String id;
+    private Long id;
+    private String member_id;
     private String password;
     private String phone_number;
     private Long point;

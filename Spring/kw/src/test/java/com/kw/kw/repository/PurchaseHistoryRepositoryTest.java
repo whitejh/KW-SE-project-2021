@@ -3,18 +3,17 @@ package com.kw.kw.repository;
 import com.kw.kw.entity.Goods;
 import com.kw.kw.entity.Member;
 import com.kw.kw.entity.PurchaseHistory;
+import com.kw.kw.entity.Role;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @SpringBootTest
 @Transactional
-@Rollback(value = false)
 public class PurchaseHistoryRepositoryTest {
     @Autowired
     private PurchaseHistoryRepository purchaseHistoryRepository;
@@ -26,10 +25,9 @@ public class PurchaseHistoryRepositoryTest {
     public void test_구매내역_등록(){
         //given
         Member member = Member.builder()
-                .id("yun")
                 .phone_number("010-1234-5678")
                 .point(100L)
-                .password("q1w2e3r4")
+                .hashed_pw("q1w2e3r4")
                 .address("AAA")
                 .BlockStatus(false).build();
         memberRepository.save(member);
@@ -53,15 +51,15 @@ public class PurchaseHistoryRepositoryTest {
     }
     @Test
     public void test_구매내역_조회(){
-        String MemberId = "AAA";
         int size = 3;
         //given
         Member member = Member.builder()
-                .id(MemberId)
+                .member_id("AAA")
                 .phone_number("010-1234-5678")
                 .point(100L)
-                .password("q1w2e3r4")
+                .hashed_pw("q1w2e3")
                 .address("AAA")
+                .role(Role.BUYER)
                 .BlockStatus(false).build();
         memberRepository.save(member);
         for(int i = 0; i < size; i++){
@@ -80,7 +78,7 @@ public class PurchaseHistoryRepositoryTest {
         }
         System.out.println("------test_구매내역_등록------");
         //when
-        List<PurchaseHistory> findHistorys = purchaseHistoryRepository.findPurchaseHistoryByMemberId(MemberId);
+        List<PurchaseHistory> findHistorys = purchaseHistoryRepository.findPurchaseHistoryByMemberId(member.getId());
         //then
         Assertions.assertEquals(findHistorys.size(), size);
     }

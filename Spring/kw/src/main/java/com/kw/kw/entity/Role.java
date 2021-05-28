@@ -1,6 +1,6 @@
 package com.kw.kw.entity;
 
-public enum Roll {
+public enum Role {
     ADMIN,
     BUYER,
     SELLER

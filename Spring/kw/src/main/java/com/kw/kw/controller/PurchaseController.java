@@ -29,7 +29,7 @@ public class PurchaseController {
     }
 
     @GetMapping("/{id}")
-    public List<PurchaseHistoryDto> lookupHistory(@PathVariable("id") String id)
+    public List<PurchaseHistoryDto> lookupHistory(@PathVariable("id") Long id)
     {
         List<PurchaseHistoryDto> findHistory = purchaseHistoryService.lookupHistoryByMemberId(id);
         return findHistory;

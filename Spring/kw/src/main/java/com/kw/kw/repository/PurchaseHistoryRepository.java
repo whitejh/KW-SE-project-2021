@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface PurchaseHistoryRepository extends JpaRepository<PurchaseHistory, Long> {
     @Query(value = "select * from purchase_history p where p.member_id= :member_id", nativeQuery = true)
-    List<PurchaseHistory> findPurchaseHistoryByMemberId(@Param("member_id") String MemberId);
+    List<PurchaseHistory> findPurchaseHistoryByMemberId(@Param("member_id") Long MemberId);
 }

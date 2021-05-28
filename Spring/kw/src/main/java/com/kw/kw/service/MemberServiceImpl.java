@@ -22,12 +22,12 @@ public class MemberServiceImpl implements MemberService{
         if(!memberRepository.findById(member.getId()).isEmpty())
             throw new IllegalArgumentException("이미 존재하는 ID입니다.");
         memberRepository.save(member);
-        return dto.getId();
+        return dto.getMember_id();
     }
 
     @Override
     public String updateById(String id, MemberDto dto) throws IllegalArgumentException{
-        Optional<Member> member = Optional.ofNullable(memberRepository.findById(id)
+        Optional<Member> member = Optional.ofNullable(memberRepository.findByMemberId(id)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 ID입니다.")));
         return id;
     }

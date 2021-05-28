@@ -16,7 +16,7 @@ public class GoodsServiceEmbedTest {
     @Autowired
     private GoodsServiceImpl goodsService;
 
-    /*@Test
+    @Test
     @Transactional
     public void test_조회수_검증()
     {
@@ -33,5 +33,5 @@ public class GoodsServiceEmbedTest {
         //then
         Goods findGoods = goodsRepository.findById(saveDto.getId()).get();
         Assertions.assertEquals(saveDto.getView_count() + 1, findGoods.getView_count());
-    }*/
+    }
 }

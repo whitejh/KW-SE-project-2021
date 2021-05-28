@@ -23,14 +23,12 @@ public class MemberServiceTest {
     public void test_멤버등록(){
         //given
         MemberDto member1 = MemberDto.builder()
-                .id("yun")
                 .address("AAA")
                 .BlockStatus(false)
                 .password("AAA")
                 .phone_number("010-1234-5678")
                 .build();
         MemberDto member2 = MemberDto.builder()
-                .id("yun")
                 .address("AAA")
                 .BlockStatus(false)
                 .password("AAA")

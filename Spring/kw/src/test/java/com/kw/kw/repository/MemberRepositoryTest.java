@@ -1,6 +1,7 @@
 package com.kw.kw.repository;
 
 import com.kw.kw.entity.Member;
+import com.kw.kw.entity.Role;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,12 @@ public class MemberRepositoryTest {
         System.out.println("-----test_멤버_등록--------");
         //given
         Member member = Member.builder()
-                .id("yun")
-                .password("AAA")
+                .member_id("AAA")
                 .phone_number("010-1234-5678")
                 .point(100L)
-                .password("q1w2e3r4")
+                .hashed_pw("q1w2e3r4")
                 .address("AAA")
+                .role(Role.BUYER)
                 .BlockStatus(false).build();
 
         //when

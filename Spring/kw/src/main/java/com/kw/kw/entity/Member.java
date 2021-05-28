@@ -1,12 +1,15 @@
 package com.kw.kw.entity;
 
+import com.kw.kw.custom.PostgreSQLEnumType;
 import com.sun.istack.NotNull;
 import com.vladmihalcea.hibernate.type.array.EnumArrayType;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,26 +21,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@TypeDefs({
-        @TypeDef(
-                typeClass = StringArrayType.class,
-                defaultForType = String[].class
-        ),
-        @TypeDef(
-                typeClass = EnumArrayType.class,
-                defaultForType = Category[].class,
-                parameters = {
-                        @org.hibernate.annotations.Parameter(
-                                name = EnumArrayType.SQL_ARRAY_TYPE,
-                                value = "roll"
-                        )
-                }
-        )
-})
+@TypeDef(
+        name = "role",
+        typeClass = PostgreSQLEnumType.class
+)
+@EntityListeners(value = {AuditingEntityListener.class})
 public class Member{
     @Id
-    @NotNull
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "member_id", nullable = false)
+    private String member_id;
+    @Column(name = "hashed_pw", nullable = false)
+    private String hashed_pw;
     @Column(name = "phone_number")
     private String phone_number;
     @Column(name="point")
@@ -49,12 +45,8 @@ public class Member{
     @CreatedDate
     @Column(name="created_at", updatable = false, nullable = false)
     private LocalDateTime regDate;
-    @Column(name = "roll", columnDefinition = "roll")
+    @Column(name = "role", columnDefinition = "role")
+    @Type(type = "role")
     @NotNull
-    private Roll roll;
-
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private PurchaseHistory purchaseHistory;
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Bookmark bookmark;
+    private Role role;
 }

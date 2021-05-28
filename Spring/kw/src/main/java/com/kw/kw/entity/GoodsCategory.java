@@ -1,5 +1,6 @@
 package com.kw.kw.entity;
 
+import com.kw.kw.custom.PostgreSQLEnumType;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 import lombok.*;
 import com.vladmihalcea.hibernate.type.array.EnumArrayType;
@@ -19,22 +20,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@TypeDefs({
-      @TypeDef(
-              typeClass = StringArrayType.class,
-              defaultForType = String[].class
-      ),
-        @TypeDef(
-                typeClass = EnumArrayType.class,
-                defaultForType = Category[].class,
-                parameters = {
-                        @org.hibernate.annotations.Parameter(
-                                name = EnumArrayType.SQL_ARRAY_TYPE,
-                                value = "category"
-                        )
-                }
-        )
-})
+@TypeDef(
+        name = "category",
+        typeClass = PostgreSQLEnumType.class
+)
 public class GoodsCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
