@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  model:
+  db:
     image: postgres
     restart: always
     environment:
@@ -9,10 +9,10 @@ services:
     labels:
       - "traefik.enable=false"
     volumes:
-      - ./deployments/model/dummy_data:/var/lib/postgresql/dummydata
+      - ./deployments/db/dummy_data:/var/lib/postgresql/dummydata
   db_admin:
     image: dpage/pgadmin4
-    depends_on: [ model ]
+    depends_on: [ db ]
     ports: [ 8080:80 ]
     environment:
       PGADMIN_DEFAULT_EMAIL: "${PGA_EMAIL}"
@@ -53,3 +53,7 @@ services:
       - "traefik.http.routers.auth.middlewares=strip-auth"
   controller:
     build: ./deployments/controller/kw
+    depends_on: [ db ]
+    ports: [ 80:8080 ]
+    labels:
+      - "traefik.http.routers.controller.rule=PathPrefix(`/goods`)"
