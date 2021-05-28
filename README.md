@@ -3,17 +3,13 @@
 광운대학교 소프트웨어공학 프로젝트 - 인터넷 쇼핑몰 웹 애플리케이션
 
 # Deploy - 개발/테스트
-
 모든 명령어는 repo root 경로에서 실행되는것을 가정한다.
-1. `docker-compose -p kw up -d`로 db와 db_admin container를 배포
-2. `docker exec -i kw_db_1 psql -U postgres -d postgres -a <src/db/schema.sql`로 본 프로젝트의 DB 스키마 반영
-3. 스프링의 경우 구동하기 위해 kw-0.0.1-SNAPSHOT.jar와 같이 *.jar 파일이 필요함, 해당 파일을 /build/libs에 위치시켜야 함
-4. reverse proxy, api, TODO...
 
 1. /etc/hosts에 `127.0.0.1 local.kw-se-2021.com` 추가
 2. `mkcert -cert-file deployments/traefik/certs/local-cert.pem -key-file deployments/traefik/certs/local-key.pem "local.kw-se-2021.com"`
    로 인증서 발급
 3. `./deploy.sh`로 배포
+4. 스프링의 경우 구동하기 위해 kw-0.0.1-SNAPSHOT.jar와 같이 *.jar 파일이 필요함, 해당 파일을 /build/libs에 위치시켜야 함
 
 # pgAdmin (postgres dbms admin) 접속
 
