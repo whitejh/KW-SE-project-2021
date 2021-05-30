@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -23,20 +24,24 @@ public class PurchaseHistoryRepositoryTest {
     private MemberRepository memberRepository;
     @Test
     public void test_구매내역_등록(){
+        String memberName = "홍길동";
+        String goodsName = "드라이기";
         //given
         Member member = Member.builder()
+                .member_id(memberName)
                 .phone_number("010-1234-5678")
                 .point(100L)
                 .hashed_pw("q1w2e3r4")
-                .address("AAA")
+                .address("경기도 의정부시")
+                .role(Role.BUYER)
                 .BlockStatus(false).build();
-        memberRepository.save(member);
+        memberRepository.saveAndFlush(member);
         Goods goods = Goods.builder().price(100L)
                 .view_count(0L)
-                .description("AAA")
-                .name("AAA")
+                .description("지지직")
+                .name(goodsName)
                 .build();
-        goodsRepository.save(goods);
+        goodsRepository.saveAndFlush(goods);
         PurchaseHistory purchaseHistory = PurchaseHistory.builder()
                 .member(member)
                 .goods(goods)
@@ -48,6 +53,8 @@ public class PurchaseHistoryRepositoryTest {
         //then
         List<PurchaseHistory> findPurchases = purchaseHistoryRepository.findAll();
         Assertions.assertEquals(findPurchases.size(), 1);
+        Assertions.assertEquals(findPurchases.get(0).getMember().getMember_id(), memberName);
+        Assertions.assertEquals(findPurchases.get(0).getGoods().getName(), goodsName);
     }
     @Test
     public void test_구매내역_조회(){

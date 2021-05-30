@@ -295,3 +295,5 @@ Thumbs.db
 
 
 # End of https://www.toptal.com/developers/gitignore/api/osx,python,jupyternotebooks,pycharm
+
+deployments/controller/kw/src/main/resources/application.yml

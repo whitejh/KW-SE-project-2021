@@ -35,7 +35,7 @@ public class MemberController {
         return new ResponseEntity<>("회원이 등록되었습니다.", HttpStatus.OK);
     }
     @PutMapping("/{id}")
-    public ResponseEntity updateById(@PathVariable @RequestParam String id,
+    public ResponseEntity updateById(@PathVariable @RequestParam Long id,
                                      @RequestBody MemberDto dto)
     {
         memberService.updateById(id, dto);

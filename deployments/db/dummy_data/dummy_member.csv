@@ -1,0 +1,7 @@
+,member_id,phone_number,create_at,point,address,block_status,hashed_pw,role
+1,david,010-1234-5678,2021-05-28,1000,address1,FALSE,q1w2e3,BUYER
+2,andrew,010-1234-5678,2021-05-28,1000,address2,FALSE,q1w2e3,BUYER
+3,john,010-1234-5678,2021-05-28,1000,address3,FALSE,q1w2e3,BUYER
+4,chuk,010-1234-5678,2021-05-28,1000,address4,FALSE,q1w2e3,BUYER
+5,ahnna,010-1234-5678,2021-05-28,1000,address5,FALSE,q1w2e3,BUYER
+6,jessy,010-1234-5678,2021-05-28,1000,address6,FALSE,q1w2e3,BUYER

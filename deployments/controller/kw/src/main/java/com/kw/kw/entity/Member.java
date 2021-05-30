@@ -47,6 +47,11 @@ public class Member{
     private LocalDateTime regDate;
     @Column(name = "role", columnDefinition = "role")
     @Type(type = "role")
+    @Enumerated(EnumType.STRING)
     @NotNull
     private Role role;
+
+    public void buyGoods(Long price){
+        this.point -= price;
+    }
 }

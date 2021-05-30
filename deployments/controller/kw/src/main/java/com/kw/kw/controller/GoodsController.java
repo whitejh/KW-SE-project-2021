@@ -2,8 +2,13 @@ package com.kw.kw.controller;
 
 import ch.qos.logback.classic.Logger;
 import com.kw.kw.dto.GoodsDto;
+import com.kw.kw.dto.MemberDto;
+import com.kw.kw.dto.PurchaseHistoryDto;
 import com.kw.kw.repository.GoodsRepository;
 import com.kw.kw.service.GoodsServiceImpl;
+import com.kw.kw.service.MemberServiceImpl;
+import com.kw.kw.service.PurchaseHistoryService;
+import com.kw.kw.service.PurchaseHistoryServiceImpl;
 import com.sun.istack.Nullable;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +29,8 @@ import java.util.Map;
 @Log4j2
 public class GoodsController {
     private final GoodsServiceImpl goodsService;
+    private final MemberServiceImpl memberService;
+    private final PurchaseHistoryServiceImpl purchaseHistoryService;
 
     @ResponseStatus(HttpStatus.BAD_REQUEST) //응답 상태코드를 설정할 수 있다.
     @ExceptionHandler(value = IllegalArgumentException.class)
@@ -121,5 +128,11 @@ public class GoodsController {
     public Long delete(@PathVariable Long id)
     {
         return goodsService.delete(id);
+    }
+
+    @PostMapping("/goods/{id}")
+    public ResponseEntity buyGoods(@ModelAttribute PurchaseHistoryDto purchaseHistoryDto){
+        purchaseHistoryService.buyGoods(purchaseHistoryDto);
+        return new ResponseEntity<>("구매가 완료되었습니다.", HttpStatus.OK);
     }
 }
