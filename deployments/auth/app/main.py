@@ -24,9 +24,6 @@ authorization_url, state = oauth.authorization_url(
     # parameters.
     access_type="offline", prompt="select_account")
 
-r = redis.Redis(host='kw_session_db_1', port=6379, db=0)
-
-
 @app.get("/whoami")
 def auth_whoami(kw_id_token: Optional[str] = Cookie(None)):
     return {'email': r.get(kw_id_token) if kw_id_token else repr(kw_id_token)}
@@ -51,8 +48,9 @@ def auth_session(request: Request):
 
     if payload['iat']-60 < time.time() < payload['exp']:
         if payload['email_verified']:
-            r.set(payload['sub'], payload['email'])
-            response = RedirectResponse('/goods/')
+            # TODO if this is new or not
+            # r.set(payload['sub'], payload['email'])
+            response = RedirectResponse('/goods/#')
             # TODO hash id and concatante it with the id
             response.set_cookie('kw_access_token', token['access_token'], max_age=token['expires_in'])
             response.set_cookie('kw_id_token', payload['sub'], max_age=token['expires_in'])
