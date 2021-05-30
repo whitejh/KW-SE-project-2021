@@ -3,7 +3,7 @@
     <div class="container">
       <div class="sec-title p-b-60">
         <h3 class="m-text5 t-center">
-          Best Product List (상품랭킹)
+          Best Product Brand (상품랭킹)
         </h3>
       </div>
       <div class="row">
@@ -15,7 +15,7 @@
 
               <div class="block1-wrapbtn w-size2">
                 <!-- Button -->
-                <router-link to="/" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                <router-link to="/shop" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
                   {{ product.linkText }}
                 </router-link>
               </div>
@@ -31,7 +31,7 @@
 
               <div class="block1-wrapbtn w-size2">
                 <!-- Button -->
-                <router-link to="/" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                <router-link to="/shop" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
                   {{ product.linkText }}
                 </router-link>
               </div>
@@ -47,7 +47,7 @@
 
               <div class="block1-wrapbtn w-size2">
                 <!-- Button -->
-                <router-link to="/" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                <router-link to="/shop" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
                   {{ product.linkText }}
                 </router-link>
               </div>

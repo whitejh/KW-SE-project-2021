@@ -44,21 +44,27 @@
               </div>
             </td>
             <td class="column-5">{{ item.price * item.qty }}원</td>
+
             <!-- 상품가격 * 개수-->
           </tr>
         </template>
+        <h1>합산 가격 : {{ totalCartPrice }}원</h1>
       </table>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   computed: {
     ...mapState('cart', {
       cartItems: state => state.items,
+    }),
+    ...mapGetters('cart', {
+      totalCartPrice: 'totalPrice',
+      totalCartQty: 'totalQty',
     }),
   },
   methods: {
@@ -74,3 +80,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h1 {
+  text-align: right;
+}
+</style>

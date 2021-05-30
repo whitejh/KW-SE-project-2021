@@ -4,9 +4,14 @@ import LoginPage from '@/views/LoginPage.vue';
 import SignupPage from '@/views/SignupPage.vue';
 import Home from './views/Home.vue';
 import Shop from './views/Shop.vue';
+import Banpal from './components/shop/Banpal.vue';
+import Shirts from './components/shop/Shirts.vue';
+import Pk from './components/shop/PK.vue';
 
 import ProductCreate from './views/ProductCreate.vue';
 import Cart from './views/Cart.vue';
+import MyPage from './views/MyPage.vue';
+import MyInfo from './components/mypage/MyInfo.vue';
 
 Vue.use(Router);
 
@@ -39,6 +44,22 @@ export default new Router({
       component: Shop,
     },
     {
+      path: '/Banpal',
+      name: 'Banpal',
+      component: Banpal,
+    },
+    {
+      path: '/Shirts',
+      name: 'Shirts',
+      component: Shirts,
+    },
+    {
+      path: '/PK',
+      name: 'PK',
+      component: Pk,
+    },
+
+    {
       path: '/create',
       name: 'create',
       component: ProductCreate,
@@ -47,6 +68,16 @@ export default new Router({
       path: '/cart',
       name: 'cart',
       component: Cart,
+    },
+    {
+      path: '/mypage',
+      name: 'mypage',
+      component: MyPage,
+    },
+    {
+      path: '/myinfo',
+      name: 'myinfo',
+      component: MyInfo,
     },
   ],
 });

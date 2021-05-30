@@ -122,4 +122,11 @@
 export default {};
 </script>
 
-<style scoped></style>
+<style scoped>
+.mt-3 {
+  background: #8fc0f8;
+}
+.col-md-3 {
+  background: rgb(191, 217, 240);
+}
+</style>
