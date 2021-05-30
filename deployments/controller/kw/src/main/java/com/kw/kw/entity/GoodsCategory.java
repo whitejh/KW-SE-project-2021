@@ -1,15 +1,15 @@
 package com.kw.kw.entity;
 
 import com.kw.kw.custom.PostgreSQLEnumType;
+import com.sun.istack.NotNull;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 import lombok.*;
 import com.vladmihalcea.hibernate.type.array.EnumArrayType;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
@@ -34,5 +34,8 @@ public class GoodsCategory {
     @JoinColumn(name = "goods_id")
     private Goods goods;
     @Column(name = "category", columnDefinition = "category")
+    @Type(type = "category")
+    @Enumerated(EnumType.STRING)
+    @NotNull
     private Category category;
 }

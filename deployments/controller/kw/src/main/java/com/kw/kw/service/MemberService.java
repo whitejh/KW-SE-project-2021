@@ -7,6 +7,7 @@ public interface MemberService {
     String register(MemberDto dto);
     Long updateById(Long id, MemberDto dto);
     MemberDto findByMemberId(String memberId);
+    MemberDto findById(Long id);
     default Member dtoToEntity(MemberDto dto){
         Member entity = Member.builder()
                 .id(dto.getId())

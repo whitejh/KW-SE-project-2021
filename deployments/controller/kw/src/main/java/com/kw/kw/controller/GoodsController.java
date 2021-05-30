@@ -43,7 +43,7 @@ public class GoodsController {
 
     @ApiOperation(value = "상품 상세 조회", notes = "특정 상품을 상세 조회합니다.")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "조회할 상품의 아이디", required = true)
+            @ApiImplicitParam(name = "id", value = "조회할 상품의 아이디", required = true, paramType = "path")
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "조회 성공"),
@@ -118,7 +118,7 @@ public class GoodsController {
 
     @ApiOperation(value = "등록한 상품 삭제", notes = "등록한 상품을 삭제합니다.")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "삭제할 상품의 ID", required = true)
+            @ApiImplicitParam(name = "id", value = "삭제할 상품의 ID", required = true, paramType = "path")
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "삭제 성공"),
@@ -130,6 +130,17 @@ public class GoodsController {
         return goodsService.delete(id);
     }
 
+    @ApiOperation(value = "상품 구매", notes = "상품을 구매합니다.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "memberId", value = "구매할 멤버의 ID", required = true, dataType = "integer", paramType = "query"),
+            @ApiImplicitParam(name = "goodsId", value = "구매할 상품의 ID", required = true, dataType = "integer", paramType = "query"),
+            @ApiImplicitParam(name = "rating", value = "상품의 평점 (1~5)", required = true, dataType = "integer", paramType = "query"),
+            @ApiImplicitParam(name = "content", value = "상품의 후기", required = false, dataType = "string", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "구매 성공"),
+            @ApiResponse(code = 400, message = "존재하지 않는 멤버 ID이거나, 상품 ID")
+    })
     @PostMapping("/goods/{id}")
     public ResponseEntity buyGoods(@ModelAttribute PurchaseHistoryDto purchaseHistoryDto){
         purchaseHistoryService.buyGoods(purchaseHistoryDto);

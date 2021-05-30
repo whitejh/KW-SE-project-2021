@@ -40,4 +40,11 @@ public class MemberServiceImpl implements MemberService{
         MemberDto dto = EntityToDto(findMember.get());
         return dto;
     }
+
+    @Override
+    public MemberDto findById(Long id) {
+        Optional<Member> findMember = Optional.ofNullable(memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버 ID입니다.")));
+        return EntityToDto(findMember.get());
+    }
 }
