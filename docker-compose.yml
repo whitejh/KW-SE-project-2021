@@ -56,4 +56,6 @@ services:
     depends_on: [ db ]
     ports: [ 80:8080 ]
     labels:
-      - "traefik.http.routers.controller.rule=PathPrefix(`/goods`)"
+      - "traefik.http.middlewares.strip-controller.stripprefix.prefixes=/_api"
+      - "traefik.http.routers.controller.rule=PathPrefix(`/_api`)"
+      - "traefik.http.routers.controller.middlewares=strip-controller"
