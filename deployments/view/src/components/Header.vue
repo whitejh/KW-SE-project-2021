@@ -2,42 +2,10 @@
   <header class="header1">
     <!-- Header desktop -->
     <div class="container-menu-header">
-      <div class="topbar">
-        <!-- <div class="topbar-social">
-          <a
-            href="https://facebook.com"
-            target="_blank"
-            class="topbar-social-item fa fa-facebook"
-          ></a>
-          <a href="#" class="topbar-social-item fa fa-instagram"></a>
-          <a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
-          <a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
-          <a href="#" class="topbar-social-item fa fa-youtube-play"></a>
-        </div> -->
-
-        <!-- <span class="topbar-child1">
-					Free shipping for standard order over $100
-				</span>
-
-        <div class="topbar-child2">
-					<span class="topbar-email">
-						fashe@example.com
-					</span>
-
-          <div class="topbar-language rs1-select2">
-              <select class="selection-1" name="time">
-                  <option>USD</option>
-                  <option>EUR</option>
-              </select>
-          </div>
-        </div> -->
-      </div>
+      <div class="topbar"></div>
 
       <div class="wrap_header">
         <!-- Logo -->
-        <!-- <a href="index.html" class="logo">
-          <img src="images/icons/logo.png" alt="IMG-LOGO" />
-        </a> -->
         <div class="logo"><h1>옷 쇼핑몰</h1></div>
 
         <!-- Menu -->
@@ -52,7 +20,7 @@
               </router-link>
 
               <router-link :to="{ name: 'shop' }" tag="li" active-class="sale-noti" exact>
-                <a>Shop</a>
+                <a>모든 상품</a>
               </router-link>
 
               <router-link :to="{ name: 'create' }" tag="li" active-class="sale-noti" exact>
@@ -85,13 +53,14 @@
 
         <!-- Header Icon -->
         <div class="header-icons">
-          <a href="#" class="header-wrapicon1 dis-block">
-            <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON" />
-          </a>
+          <router-link to="/mypage" class="header-wrapicon1 dis-block">
+            마이페이지 <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON" />
+          </router-link>
 
           <span class="linedivide1" />
 
           <div class="header-wrapicon2">
+            담은 상품 목록
             <img
               src="images/icons/icon-header-02.png"
               class="header-icon1 js-show-header-dropdown"
