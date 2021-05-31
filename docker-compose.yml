@@ -1,0 +1,61 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "${PG_PW}"
+    labels:
+      - "traefik.enable=false"
+    volumes:
+      - ./deployments/db/dummy_data:/var/lib/postgresql/dummydata
+  db_admin:
+    image: dpage/pgadmin4
+    depends_on: [ db ]
+    ports: [ 8080:80 ]
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "${PGA_EMAIL}"
+      PGADMIN_DEFAULT_PASSWORD: "${PGA_PW}"
+    labels:
+      - "traefik.enable=false"
+  session_db:
+    image: redis
+    ports: [ 6379:6379 ]
+    command:
+      - "--appendonly yes"
+    labels:
+      - "traefik.enable=false"
+  gw:
+    image: traefik:v2.4
+    command:
+      - "--log.level=DEBUG"
+      - "--accesslog=true"
+      - "--api=true"
+      - "--providers.docker=true"
+      - "--providers.file.filename=/etc/traefik/config.yml"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.websecure.http.tls=true"
+    ports: [ 443:443 ]
+    volumes:
+      - "./deployments/gw/certs:/etc/certs:ro"
+      - "./deployments/gw/config.yml:/etc/traefik/config.yml"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  auth:
+    build: ./deployments/auth
+    image: kw_auth
+    environment:
+      LOG_LEVEL: ${LOG_LEVEL}
+      OAUTHLIB_INSECURE_TRANSPORT: 1
+    labels:
+      - "traefik.http.middlewares.strip-auth.stripprefix.prefixes=/auth"
+      - "traefik.http.routers.auth.rule=PathPrefix(`/auth`)"
+      - "traefik.http.routers.auth.middlewares=strip-auth"
+  controller:
+    build: ./deployments/controller/kw
+    depends_on: [ db ]
+    ports: [ 80:8080 ]
+    labels:
+      - "traefik.http.middlewares.strip-controller.stripprefix.prefixes=/_api"
+      - "traefik.http.routers.controller.rule=PathPrefix(`/_api`)"
+      - "traefik.http.routers.controller.middlewares=strip-controller"

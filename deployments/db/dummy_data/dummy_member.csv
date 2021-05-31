@@ -1,0 +1,7 @@
+id,phone_number,create_at,point,address,block_status,role
+david,010-1234-5678,2021-05-28,1000,address1,FALSE,BUYER
+andrew,010-1234-5678,2021-05-28,1000,address2,FALSE,BUYER
+john,010-1234-5678,2021-05-28,1000,address3,FALSE,BUYER
+chuk,010-1234-5678,2021-05-28,1000,address4,FALSE,BUYER
+ahnna,010-1234-5678,2021-05-28,1000,address5,FALSE,BUYER
+jessy,010-1234-5678,2021-05-28,1000,address6,FALSE,BUYER
