@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS public.goods
     description text                     NOT NULL,
     created_at  timestamp with time zone NOT NULL,
     view_count  integer                  NOT NULL,
-    image  text,
+    image       text,
     updated_at  timestamp with time zone NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (seller_id)
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS public.bookmark
 );
 
 CREATE TYPE public.category AS ENUM
-    ('BAR', 'FOO', 'BAZ');
+    ('TSHIRT', 'SHIRT');
 
 CREATE TABLE IF NOT EXISTS public.goods_category
 (
