@@ -11,6 +11,7 @@ import MyInfo from '@/components/mypage/MyInfo.vue';
 
 export default {
   components: {
+    MyPageMenu,
     MyInfo,
   },
   computed: {

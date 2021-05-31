@@ -47,13 +47,22 @@ services:
   controller:
     build: ./deployments/controller/kw
     depends_on: [ db ]
+    ports:
+      - "8080"
+    volumes:
+      - images:/var/lib/kw/images
     labels:
       - "traefik.http.middlewares.strip-controller.stripprefix.prefixes=/_api"
       - "traefik.http.routers.controller.rule=PathPrefix(`/_api`)"
       - "traefik.http.routers.controller.middlewares=strip-controller"
   view:
     build: ./deployments/view
+    ports:
+      - "8080"
+    volumes:
+      - images:/var/lib/kw/images
     labels:
-      - "traefik.http.middlewares.strip-shop.stripprefix.prefixes=/shop"
       - "traefik.http.routers.view.rule=PathPrefix(`/shop`)"
-      - "traefik.http.routers.view.middlewares=strip-shop"
+
+volumes:
+  images:

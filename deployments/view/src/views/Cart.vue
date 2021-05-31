@@ -19,6 +19,13 @@
 
           <div class="size10 trans-0-4 m-t-10 m-b-10">
             <!-- Button -->
+            <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" @click="addList">
+              구매하기
+            </button>
+          </div>
+
+          <div class="size10 trans-0-4 m-t-10 m-b-10">
+            <!-- Button -->
             <button
               class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4"
               @click="clearCart"
@@ -31,6 +38,7 @@
     </section>
   </div>
 </template>
+
 <script>
 import CartList from '@/components/features/CartList.vue';
 
@@ -41,6 +49,9 @@ export default {
   methods: {
     clearCart() {
       this.$store.dispatch('cart/clearCart');
+    },
+    addList() {
+      this.$store.dispatch('cart/addList');
     },
   },
 };
