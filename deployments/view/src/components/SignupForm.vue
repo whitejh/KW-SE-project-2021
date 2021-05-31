@@ -2,14 +2,14 @@
   <div class="contents">
     <div class="form-wrapper form-wrapper-sm">
       <form class="form" @submit.prevent="submitForm">
-        <div>
+        <!-- <div>
           <label for="username">아이디 </label>
           <input id="username" v-model="username" type="text" />
         </div>
         <div>
           <label for="password">비밀번호 </label>
           <input id="password" v-model="password" type="text" />
-        </div>
+        </div> -->
         <div>
           <label for="name">이름 </label>
           <input id="name" v-model="name" type="text" />
@@ -37,8 +37,8 @@ export default {
   data() {
     return {
       // form values
-      username: '',
-      password: '',
+      // username: '',
+      // password: '',
       name: '',
       address: '',
       phonenumber: '',
@@ -49,8 +49,8 @@ export default {
   methods: {
     async submitForm() {
       const userData = {
-        username: this.username,
-        password: this.password,
+        // username: this.username,
+        // password: this.password,
         name: this.name,
         address: this.address,
         phonenumber: this.phonenumber,
@@ -61,15 +61,15 @@ export default {
       this.initForm();
     },
     initForm() {
-      this.username = '';
-      this.password = '';
+      // this.username = '';
+      // this.password = '';
       this.name = '';
       this.address = '';
       this.phonenumber = '';
     },
     OK() {
-      alert('메인페이지로 이동합니다');
-      this.$router.push('/home');
+      alert('로그인페이지로 이동합니다');
+      this.$router.push('/login');
 
       // if (this.username != '') {
       //   if (this.password != '') {
@@ -80,8 +80,8 @@ export default {
     },
 
     Cancel() {
-      alert('로그인 페이지로 이동합니다');
-      this.$router.push('/login');
+      alert('회원가입이 취소되었습니다');
+      this.$router.push('/signup');
     },
   },
 };
