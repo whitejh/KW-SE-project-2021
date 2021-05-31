@@ -1,4 +1,4 @@
-,seller_id,name,price,descriptionprice,create_at,view_count,image_blob,updated_at
+id,seller_id,name,price,descriptionprice,create_at,view_count,image_blob,updated_at
 1,david,consent,100,AAA,2021-05-28,0,NULL,2021-05-28
 2,david,book,1000,BBB,2021-05-28,0,NULL,2021-05-28
 3,david,shirt,100000,CCC,2021-05-28,0,NULL,2021-05-28
