@@ -2,10 +2,12 @@
   <div>
     <section
       class="bg-title-page p-t-50 p-b-40 flex-col-c-m"
-      :style="'background-image: url(https://picsum.photos/1920/239/?image=526);'"
+      :style="
+        'background-image: url(https://image.msscdn.net/images/goods_img/20200305/1336398/1336398_2_500.jpg);'
+      "
     >
       <h2 class="l-text2 t-center">
-        2021년 여름 남자 옷 모음
+        셔츠/블라우스 모음
       </h2>
       <!-- <h2 class="l-text2 t-center"></h2> -->
     </section>
@@ -15,13 +17,17 @@
         <div class="row">
           <div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
             <div class="leftbar p-r-20 p-r-0-sm">
+              <!--  -->
               <CategoryFilter />
 
+              <!--  -->
               <h4 class="m-text14 p-b-32">
                 Filters
               </h4>
 
               <PriceFilter />
+
+              <!-- <ColorFilter /> -->
 
               <div class="search-product pos-relative bo4 of-hidden">
                 <input
@@ -40,17 +46,17 @@
 
           <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
             <!--  -->
-            <!-- <div class="flex-sb-m flex-w p-b-35">
+            <div class="flex-sb-m flex-w p-b-35">
               <span class="s-text8 p-t-5 p-b-5">
                 Showing {{ page * 12 + 1 }}–{{ page * 12 + 12 }} of {{ totalProducts }} results
               </span>
-            </div> -->
+            </div>
 
             <!-- Product -->
-            <FeaturedProductList />
+            <ProductList1 />
 
             <!-- Pagination -->
-            <!-- <div class="pagination flex-m flex-w p-t-26">
+            <div class="pagination flex-m flex-w p-t-26">
               <template v-for="p in Math.ceil(totalProducts / 12)">
                 <button
                   :key="p"
@@ -62,7 +68,7 @@
                   {{ p }}
                 </button>
               </template>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -74,18 +80,16 @@ import { mapState } from 'vuex';
 
 import CategoryFilter from '@/components/shop/CategoryFilter.vue';
 import PriceFilter from '@/components/shop/PriceFilter.vue';
-// import ColorFilter from '@/components/shop/ColorFilter.vue';
 
 import FeaturedProductList from '@/components/home/FeaturedProductList.vue';
-// import ProductList from '@/components/shop/ProductList.vue';
+import ProductList1 from '@/components/shop/ProductList1.vue';
 
 export default {
   components: {
     CategoryFilter,
     PriceFilter,
-    // ColorFilter,
-    FeaturedProductList,
-    // ProductList,
+    // FeaturedProductList,
+    ProductList1,
   },
   computed: {
     ...mapState('product', {
@@ -95,7 +99,7 @@ export default {
   },
   methods: {
     changePage(page) {
-      this.$store.dispatch('product/setProducts', page);
+      this.$store.dispatch('product/setProducts1', page);
     },
   },
 };

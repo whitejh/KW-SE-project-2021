@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="page-header">로그인 페이지</h1>
+    <h1 class="page-header">로그인</h1>
     <LoginForm></LoginForm>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
 
 <style scoped>
 body {
-  background: #f7f6f9;
+  background: #b8b3e7;
 }
 .app {
   position: relative;
@@ -48,6 +48,7 @@ a:hover {
   padding: 0 5px;
   width: 100%;
 }
+
 /*--- HEADER ---*/
 .page-header {
   font-size: 45px;
@@ -74,18 +75,6 @@ a:hover {
 }
 .form-wrapper-sm .page-header {
   padding: 0px 0 20px;
-}
-.form {
-  width: 460px;
-  height: 100%;
-}
-.form .validation-text {
-  margin-top: -0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
 }
 .form label {
   width: 100%;
@@ -132,6 +121,7 @@ a:hover {
 .warning {
   color: #ff4057;
 }
+
 html,
 body {
   height: 100%;

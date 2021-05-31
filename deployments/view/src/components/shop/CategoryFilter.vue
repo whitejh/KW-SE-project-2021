@@ -5,35 +5,29 @@
     </h4>
 
     <ul class="p-b-54">
-      <li class="p-t-4">
-        <a href="#" class="s-text13 active1">
+      <router-link :to="'/shop'" class="s-text13">
+        <li class="p-t-4">
           전체
-        </a>
-      </li>
+        </li>
+      </router-link>
 
-      <li class="p-t-4">
-        <a href="#" class="s-text13">
+      <router-link :to="'/Banpal'" class="s-text13">
+        <li class="p-t-4">
           반팔 티셔츠
-        </a>
-      </li>
+        </li>
+      </router-link>
 
-      <li class="p-t-4">
-        <a href="#" class="s-text13">
+      <router-link :to="'/Shirts'" class="s-text13">
+        <li class="p-t-4">
           셔츠/블라우스
-        </a>
-      </li>
+        </li>
+      </router-link>
 
-      <li class="p-t-4">
-        <a href="#" class="s-text13">
+      <!-- <router-link :to="'/Pk'" class="s-text13">
+        <li class="p-t-4">
           피케/카라 티셔츠
-        </a>
-      </li>
-
-      <li class="p-t-4">
-        <a href="#" class="s-text13">
-          기타
-        </a>
-      </li>
+        </li>
+      </router-link> -->
     </ul>
   </div>
 </template>

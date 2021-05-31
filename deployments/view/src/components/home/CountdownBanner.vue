@@ -1,16 +1,19 @@
 <template>
   <div class="bgwhite pos-relative p-b-20per-ssm">
+    <h1>특가 세일 상품</h1>
     <img
       src="https://image.msscdn.net/images/goods_img/20210325/1862704/1862704_1_500.jpg"
       alt="IMG-BANNER"
     />
 
     <div class="ab-t-l sizefull flex-col-c-b p-l-15 p-r-15 p-b-20">
-      <div class="t-center">
+      <div class="product">
         <a href="product-detail.html" class="dis-block s-text3 p-b-5">
           21SS MJS152A 055 사선 요크 심 반팔 티셔츠
         </a>
+      </div>
 
+      <div class="t-center">
         <span class="block2-oldprice m-text7 p-r-5">
           $850,000원
         </span>
@@ -75,3 +78,30 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h1 {
+  text-align: center;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+.product {
+  display: block;
+  text-align: center;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+img {
+  display: inline;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>

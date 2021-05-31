@@ -3,7 +3,7 @@
     <div class="container">
       <div class="sec-title p-b-60">
         <h3 class="m-text5 t-center">
-          Featured Products (주요상품)
+          반팔 & 셔츠 Top4 (주요상품)
         </h3>
       </div>
 
@@ -18,6 +18,7 @@
     </div>
   </section>
 </template>
+
 <script>
 import { mapState } from 'vuex';
 

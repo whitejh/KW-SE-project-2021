@@ -1,7 +1,7 @@
 <template>
   <div class="filter-price p-t-22 p-b-50 bo3">
     <div class="m-text15 p-b-17">
-      Price
+      가격
     </div>
 
     <div class="wra-filter-bar">
@@ -12,12 +12,12 @@
       <div class="w-size11">
         <!-- Button -->
         <button class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
-          Filter
+          필터링
         </button>
       </div>
 
       <div class="s-text3 p-t-10 p-b-10">
-        Range: <span id="value-lower">10000</span>원 ~ <span id="value-upper">80000</span>원
+        가격 범위 : <span id="value-lower">10000</span>원 ~ <span id="value-upper">80000</span>원
       </div>
     </div>
   </div>

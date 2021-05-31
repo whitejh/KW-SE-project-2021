@@ -2,14 +2,14 @@
   <div class="contents">
     <div class="form-wrapper form-wrapper-sm">
       <form class="form" @submit.prevent="submitForm">
-        <div>
+        <!-- <div>
           <label for="username">아이디 </label>
           <input id="username" v-model="username" type="text" />
         </div>
         <div>
           <label for="password">비밀번호 </label>
           <input id="password" v-model="password" type="text" />
-        </div>
+        </div> -->
         <div>
           <label for="name">이름 </label>
           <input id="name" v-model="name" type="text" />
@@ -22,7 +22,8 @@
           <label for="phonenumber">전화번호 </label>
           <input id="phonenumber" v-model="phonenumber" type="text" />
         </div>
-        <button type="submit" class="btn">회원 가입</button>
+        <button type="submit" class="btn" router-link to="/login" @click="OK">회원 가입</button>
+        <button type="submit" class="btn" router-link to="/login" @click="Cancel">취소</button>
       </form>
       <p class="log">{{ logMessage }}</p>
     </div>
@@ -36,9 +37,11 @@ export default {
   data() {
     return {
       // form values
-      username: '',
-      password: '',
-      nickname: '',
+      // username: '',
+      // password: '',
+      name: '',
+      address: '',
+      phonenumber: '',
       // log
       logMessage: '',
     };
@@ -46,9 +49,11 @@ export default {
   methods: {
     async submitForm() {
       const userData = {
-        username: this.username,
-        password: this.password,
-        nickname: this.nickname,
+        // username: this.username,
+        // password: this.password,
+        name: this.name,
+        address: this.address,
+        phonenumber: this.phonenumber,
       };
       const { data } = await registerUser(userData);
       console.log(data.username);
@@ -56,9 +61,27 @@ export default {
       this.initForm();
     },
     initForm() {
-      this.username = '';
-      this.password = '';
-      this.nickname = '';
+      // this.username = '';
+      // this.password = '';
+      this.name = '';
+      this.address = '';
+      this.phonenumber = '';
+    },
+    OK() {
+      alert('로그인페이지로 이동합니다');
+      this.$router.push('/login');
+
+      // if (this.username != '') {
+      //   if (this.password != '') {
+      //     alert('Success to Make New Account');
+      //     this.$router.push('/login');
+      //   } else alert('Please input password');
+      // } else alert('Please input name');
+    },
+
+    Cancel() {
+      alert('회원가입이 취소되었습니다');
+      this.$router.push('/signup');
     },
   },
 };
@@ -66,7 +89,7 @@ export default {
 
 <style scoped>
 body {
-  background: #f7f6f9;
+  background: #b8b3e7;
 }
 .app {
   position: relative;
@@ -98,13 +121,6 @@ a:hover {
   padding: 0 5px;
   width: 100%;
 }
-/*--- HEADER ---*/
-.page-header {
-  font-size: 45px;
-  font-weight: 600;
-  color: #456155;
-  padding: 30px 5px 15px;
-}
 
 /*--- FORM ---*/
 .form-container {
@@ -124,18 +140,6 @@ a:hover {
 }
 .form-wrapper-sm .page-header {
   padding: 0px 0 20px;
-}
-.form {
-  width: 460px;
-  height: 100%;
-}
-.form .validation-text {
-  margin-top: -0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
 }
 .form label {
   width: 100%;
@@ -163,17 +167,22 @@ a:hover {
 .form div:nth-last-child(2) {
   margin-bottom: 0.5rem;
 }
+
 .btn {
   background: #fe9616;
   padding: 0.5rem 1.5rem;
   font-weight: 700;
   border-radius: 0.25rem;
   border: 0 solid #dae1e7;
+  margin-left: 60px;
+  margin-right: 60px;
 }
+
 .btn.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 .log {
   color: #ff4057;
   font-size: 1rem;
@@ -182,6 +191,7 @@ a:hover {
 .warning {
   color: #ff4057;
 }
+
 html,
 body {
   height: 100%;

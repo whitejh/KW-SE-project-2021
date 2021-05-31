@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="page-header">회원 가입 페이지</h1>
+    <h1 class="page-header">회원 가입</h1>
     <SignupForm></SignupForm>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
 
 <style scoped>
 body {
-  background: #f7f6f9;
+  background: #a48ed194;
 }
 .app {
   position: relative;
