@@ -1,15 +1,16 @@
 package com.kw.kw.entity;
 
 import com.kw.kw.custom.PostgreSQLEnumType;
+import com.sun.istack.NotNull;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 import lombok.*;
 import com.vladmihalcea.hibernate.type.array.EnumArrayType;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
@@ -25,14 +26,10 @@ import java.util.List;
         typeClass = PostgreSQLEnumType.class
 )
 public class GoodsCategory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
-    private Long id;
-    @OneToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "goods_id")
-    private Goods goods;
-    @Column(name = "category", columnDefinition = "category")
-    private Category category;
+    @EmbeddedId
+    protected GoodsCategoryPK goodsCategoryPK;
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,orphanRemoval = true)
+    @JoinColumn(name = "goods_id", insertable = false, updatable = false)
+    protected Goods goods;
 }

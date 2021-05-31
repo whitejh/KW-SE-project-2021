@@ -2,8 +2,13 @@ package com.kw.kw.controller;
 
 import ch.qos.logback.classic.Logger;
 import com.kw.kw.dto.GoodsDto;
+import com.kw.kw.dto.MemberDto;
+import com.kw.kw.dto.PurchaseHistoryDto;
 import com.kw.kw.repository.GoodsRepository;
 import com.kw.kw.service.GoodsServiceImpl;
+import com.kw.kw.service.MemberServiceImpl;
+import com.kw.kw.service.PurchaseHistoryService;
+import com.kw.kw.service.PurchaseHistoryServiceImpl;
 import com.sun.istack.Nullable;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +18,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +32,8 @@ import java.util.Map;
 @Log4j2
 public class GoodsController {
     private final GoodsServiceImpl goodsService;
+    private final MemberServiceImpl memberService;
+    private final PurchaseHistoryServiceImpl purchaseHistoryService;
 
     @ResponseStatus(HttpStatus.BAD_REQUEST) //응답 상태코드를 설정할 수 있다.
     @ExceptionHandler(value = IllegalArgumentException.class)
@@ -36,7 +46,7 @@ public class GoodsController {
 
     @ApiOperation(value = "상품 상세 조회", notes = "특정 상품을 상세 조회합니다.")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "조회할 상품의 아이디", required = true)
+            @ApiImplicitParam(name = "id", value = "조회할 상품의 아이디", required = true, paramType = "path")
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "조회 성공"),
@@ -76,8 +86,15 @@ public class GoodsController {
         }
         else{
             log.info("--------file-------");
-            byte[] bytes = file.getBytes();
-            dto.setImage(bytes);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            String currentDate = simpleDateFormat.format(new Date());
+            String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+            String absolutePath = new File("").getAbsolutePath() + "\\";
+            String storedPath = absolutePath + currentDate + fileExt;
+            file.transferTo(new File(storedPath));
+            log.info("파일 저장 경로: " + storedPath);
+            //byte[] bytes = file.getBytes();
+            //dto.setImage(bytes);
         }
         return goodsService.register(dto);
     }
@@ -111,7 +128,7 @@ public class GoodsController {
 
     @ApiOperation(value = "등록한 상품 삭제", notes = "등록한 상품을 삭제합니다.")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "삭제할 상품의 ID", required = true)
+            @ApiImplicitParam(name = "id", value = "삭제할 상품의 ID", required = true, paramType = "path")
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "삭제 성공"),
@@ -121,5 +138,22 @@ public class GoodsController {
     public Long delete(@PathVariable Long id)
     {
         return goodsService.delete(id);
+    }
+
+    @ApiOperation(value = "상품 구매", notes = "상품을 구매합니다.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "memberId", value = "구매할 멤버의 ID", required = true, dataType = "integer", paramType = "query"),
+            @ApiImplicitParam(name = "goodsId", value = "구매할 상품의 ID", required = true, dataType = "integer", paramType = "query"),
+            @ApiImplicitParam(name = "rating", value = "상품의 평점 (1~5)", required = true, dataType = "integer", paramType = "query"),
+            @ApiImplicitParam(name = "content", value = "상품의 후기", required = false, dataType = "string", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "구매 성공"),
+            @ApiResponse(code = 400, message = "존재하지 않는 멤버 ID이거나, 상품 ID")
+    })
+    @PostMapping("/goods/{id}")
+    public ResponseEntity buyGoods(@ModelAttribute PurchaseHistoryDto purchaseHistoryDto){
+        purchaseHistoryService.buyGoods(purchaseHistoryDto);
+        return new ResponseEntity<>("구매가 완료되었습니다.", HttpStatus.OK);
     }
 }

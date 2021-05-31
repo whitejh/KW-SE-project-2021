@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
-    @Query(value = "select * from member m where m.member_id= :member_id", nativeQuery = true)
+public interface MemberRepository extends JpaRepository<Member, String> {
+    @Query(value = "select m from Member m where m.id= :member_id")
     Optional<Member> findByMemberId(@Param("member_id") String MemberId);
 }

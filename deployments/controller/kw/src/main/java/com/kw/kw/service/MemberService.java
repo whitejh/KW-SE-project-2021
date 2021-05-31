@@ -6,6 +6,8 @@ import com.kw.kw.entity.Member;
 public interface MemberService {
     String register(MemberDto dto);
     String updateById(String id, MemberDto dto);
+    MemberDto findByMemberId(String memberId);
+    MemberDto findById(String id);
     default Member dtoToEntity(MemberDto dto){
         Member entity = Member.builder()
                 .id(dto.getId())

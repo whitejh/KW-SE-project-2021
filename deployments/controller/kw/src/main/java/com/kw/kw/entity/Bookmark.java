@@ -17,11 +17,9 @@ public class Bookmark {
     @Id
     private Long id;
     @OneToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "goods_id")
     private Goods goods;
     @OneToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "member_id")
     private Member member;
 }

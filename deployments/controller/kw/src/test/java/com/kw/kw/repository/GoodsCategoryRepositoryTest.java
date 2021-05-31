@@ -1,8 +1,6 @@
 package com.kw.kw.repository;
 
-import com.kw.kw.entity.Category;
-import com.kw.kw.entity.Goods;
-import com.kw.kw.entity.GoodsCategory;
+import com.kw.kw.entity.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -19,19 +18,44 @@ public class GoodsCategoryRepositoryTest {
     GoodsCategoryRepository goodsCategoryRepository;
     @Autowired
     GoodsRepository goodsRepository;
+    @Autowired
+    MemberRepository memberRepository;
+    String memberId = "team4@kw.ac.kr";
     @Test
     public void test_카테고리_등록(){
-        /*Goods goods = Goods.builder()
-                .name("AAA")
-                .description("AAA")
-                .price(10L)
-                .view_count(0L).build();
+        //given
+        Member member = createMember();
+        memberRepository.save(member);
+        Goods goods = createGoods(member);
+        goodsRepository.save(goods);
+        GoodsCategoryPK goodsCategoryPK = GoodsCategoryPK.builder()
+                .goodsId(goods.getId())
+                .category(Category.FOO).build();
         GoodsCategory goodsCategory = GoodsCategory.builder()
-                .goods(goods)
-                .category(new Category[] {Category.COMPUTER, Category.HOME_APPLIANCE}).build();
+                .goodsCategoryPK(goodsCategoryPK)
+                .goods(goods).build();
+        //when
         goodsCategoryRepository.save(goodsCategory);
-        GoodsCategory findGoodsCategory = goodsCategoryRepository.findById(goods.getId()).get();
-        Assertions.assertEquals(findGoodsCategory.getCategory().length, 2);*/
+        //then
+        List<GoodsCategory> findCategory = goodsCategoryRepository.findAll();
+        Assertions.assertEquals(1, findCategory.size());
+    }
+    public Member createMember(){
+        return Member.builder()
+                .id(memberId)
+                .phone_number("010-1234-5678")
+                .address("경기도 의정부시")
+                .point(10000L)
+                .role(Role.BUYER)
+                .BlockStatus(false).build();
+    }
+    public Goods createGoods(Member member){
+        return Goods.builder()
+                .member(member)
+                .view_count(0L)
+                .price(100L)
+                .description("AAA")
+                .name("뚤딸리").build();
     }
 
     @Test

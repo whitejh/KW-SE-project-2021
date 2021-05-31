@@ -1,6 +1,8 @@
 package com.kw.kw.repository;
 
 import com.kw.kw.entity.Goods;
+import com.kw.kw.entity.Member;
+import com.kw.kw.entity.Role;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,22 @@ import java.util.Optional;
 public class GoodsRepositoryTest {
     @Autowired
     GoodsRepository goodsRepository;
-
+    @Autowired
+    MemberRepository memberRepository;
+    String memberId = "team4@kw.ac.kr";
+    String goodsName = "드라이기";
     @Test
-    public void testGoods(){
+    public void test_상품_등록(){
+        Member member = createMember();
+        memberRepository.save(member);
         //given
-        Goods goods = Goods.builder().name("AAA").view_count(0L).price(100L).description("설명").build();
+        Goods goods = Goods.builder()
+                .name(goodsName)
+                .view_count(0L)
+                .description("AAA")
+                .price(100L)
+                .image_blob(null)
+                .member(member).build();
         //when
         goodsRepository.save(goods);
         //then
@@ -27,11 +40,22 @@ public class GoodsRepositoryTest {
         Assertions.assertThat(findGoods.get().getId()).isEqualTo(goods.getId());
         System.out.println(goods.getRegDate());
     }
+    public Member createMember(){
+        return Member.builder()
+                .id(memberId)
+                .phone_number("010-1234-5678")
+                .address("경기도 의정부시")
+                .point(10000L)
+                .role(Role.BUYER)
+                .BlockStatus(false).build();
+    }
 
     @Test
     public void basicCRUD(){
-        Goods goods1 = Goods.builder().name("goods1").view_count(0L).price(100L).description("설명").build();
-        Goods goods2 = Goods.builder().name("goods2").view_count(0L).price(100L).description("설명").build();
+        Member member = createMember();
+        memberRepository.save(member);
+        Goods goods1 = Goods.builder().member(member).name("goods1").view_count(0L).price(100L).description("설명").build();
+        Goods goods2 = Goods.builder().member(member).name("goods2").view_count(0L).price(100L).description("설명").build();
         goodsRepository.save(goods1);
         goodsRepository.save(goods2);
         //단건 조회 검증
@@ -45,23 +69,10 @@ public class GoodsRepositoryTest {
         Assertions.assertThat(findGoods.size()).isEqualTo(2);
 
         //삭제 검증
+        goods1.changeSeller(null);
         goodsRepository.deleteById(goods1.getId());
+        goods2.changeSeller(null);
         goodsRepository.deleteById(goods2.getId());
         Assertions.assertThat(goodsRepository.count()).isEqualTo(0);
-    }
-
-    @Test
-    public void testFindName(){
-        //given
-        for(int i = 0; i < 10; i++){
-            Goods goods = Goods.builder().name("A" + (i % 5)).price(100L).description("설명").view_count(0L).build();
-            goodsRepository.save(goods);
-        }
-        //when
-        List<Goods> findGoods = goodsRepository.findByName("A" + 0L);
-        //then
-        for(Goods goods : findGoods){
-            Assertions.assertThat(goods.getName()).isEqualTo("A" + 0L);
-        }
     }
 }
