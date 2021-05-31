@@ -299,3 +299,5 @@ Thumbs.db
 deployments/controller/kw/src/main/resources/application.yml
 
 *.pem
+
+deployments/controller/kw/images/

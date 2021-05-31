@@ -9,6 +9,7 @@ import com.kw.kw.service.GoodsServiceImpl;
 import com.kw.kw.service.MemberServiceImpl;
 import com.kw.kw.service.PurchaseHistoryService;
 import com.kw.kw.service.PurchaseHistoryServiceImpl;
+import com.kw.kw.util.FileHandler;
 import com.sun.istack.Nullable;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -87,12 +88,8 @@ public class GoodsController {
         }
         else{
             log.info("--------file-------");
-            Long nano = System.currentTimeMillis();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmSS.sss");
-            String currentDate = simpleDateFormat.format(nano);
-            String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
-            String absolutePath = new File("").getAbsolutePath() + "\\";
-            storedPath = absolutePath + currentDate + fileExt;
+            storedPath = FileHandler.makeStoredPath(file.getOriginalFilename()
+                    .substring(file.getOriginalFilename().lastIndexOf('.')));
             file.transferTo(new File(storedPath));
             log.info("파일 저장 경로: " + storedPath);
         }
@@ -116,13 +113,16 @@ public class GoodsController {
     public Long update(@PathVariable Long id,
                        @ModelAttribute GoodsDto updateDto,
                        @Nullable @RequestParam(value="file", required = false) MultipartFile file) throws IOException {
+        String storedPath = null;
         if(null == file){
             log.info("update : 인자로 넘어온 파일이 없습니다.");
         }
         else{
             log.info("--------file-------");
-            //byte[] bytes = file.getBytes();
-            //updateDto.setImage(bytes);
+            storedPath = FileHandler.makeStoredPath(file.getOriginalFilename()
+                    .substring(file.getOriginalFilename().lastIndexOf('.')));
+            file.transferTo(new File(storedPath));
+            log.info("파일 저장 경로: " + storedPath);
         }
         return goodsService.updateById(id, updateDto);
     }
