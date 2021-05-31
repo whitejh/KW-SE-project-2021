@@ -46,7 +46,6 @@
               <select class="form-select">
                 <option>반팔티셔츠</option>
                 <option>셔츠</option>
-                <option>피케/카라티셔츠</option>
               </select>
             </div>
           </div>

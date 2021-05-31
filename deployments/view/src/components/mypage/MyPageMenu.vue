@@ -11,13 +11,7 @@
         </li>
       </router-link>
 
-      <!-- <router-link :to="'/Pk'" class="s-text13">
-        <li class="p-t-4">
-          회원정보 수정
-        </li>
-      </router-link> -->
-
-      <router-link :to="'/Shirts'" class="s-text13">
+      <router-link :to="'/selllist'" class="s-text13">
         <li class="p-t-4">
           구매 내역
         </li>

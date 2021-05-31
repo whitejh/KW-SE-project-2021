@@ -39,30 +39,8 @@
           </div>
 
           <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
-            <!--  -->
-            <!-- <div class="flex-sb-m flex-w p-b-35">
-              <span class="s-text8 p-t-5 p-b-5">
-                Showing {{ page * 12 + 1 }}–{{ page * 12 + 12 }} of {{ totalProducts }} results
-              </span>
-            </div> -->
-
             <!-- Product -->
             <FeaturedProductList />
-
-            <!-- Pagination -->
-            <!-- <div class="pagination flex-m flex-w p-t-26">
-              <template v-for="p in Math.ceil(totalProducts / 12)">
-                <button
-                  :key="p"
-                  type="button"
-                  class="item-pagination flex-c-m trans-0-4"
-                  :class="{ 'active-pagination': p - 1 === page }"
-                  @click="changePage(p - 1)"
-                >
-                  {{ p }}
-                </button>
-              </template>
-            </div> -->
           </div>
         </div>
       </div>
