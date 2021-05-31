@@ -2,7 +2,9 @@ package com.kw.kw.service;
 
 import com.kw.kw.dto.GoodsDto;
 import com.kw.kw.entity.Goods;
+import com.kw.kw.entity.Member;
 import com.kw.kw.repository.GoodsRepository;
+import com.kw.kw.repository.MemberRepository;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -19,17 +21,21 @@ import java.util.Optional;
 @RequiredArgsConstructor //의존성 자동 주입
 public class GoodsServiceImpl implements GoodsService{
     private final GoodsRepository repository;
+    private final MemberRepository memberRepository;
     @Transactional
     @Override
     public Long register(GoodsDto dto) {
-        Goods entity = dtoToEntity(dto);
+        Member findMember = memberRepository.findById(dto.getSellerId())
+                .orElseThrow(() -> new IllegalArgumentException("판매자 ID가 존재하지 않습니다."));
+        Goods entity = dtoToEntity(dto, findMember);
         return repository.save(entity).getId();
     }
     @Transactional
     @Override
     public Long delete(Long id) throws IllegalArgumentException{
-        Optional<Goods> deleteEntity = Optional.ofNullable(repository.findById(id)
+        Goods deleteEntity = (repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("삭제할 ID가 존재하지 않습니다.")));
+        deleteEntity.changeSeller(null);
         repository.deleteById(id);
         return id;
     }

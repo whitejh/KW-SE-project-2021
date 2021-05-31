@@ -17,6 +17,8 @@ public class GoodsDto implements Serializable {
     private Long id;
     @ApiModelProperty(notes = "상품의 이름")
     private String name;
+    @ApiModelProperty(notes = "올린 유저의 ID")
+    private String sellerId;
     @ApiModelProperty(notes = "상품의 가격")
     private Long price;
     @ApiModelProperty(notes = "유저의 설명")

@@ -18,7 +18,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,8 +86,15 @@ public class GoodsController {
         }
         else{
             log.info("--------file-------");
-            byte[] bytes = file.getBytes();
-            dto.setImage(bytes);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            String currentDate = simpleDateFormat.format(new Date());
+            String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+            String absolutePath = new File("").getAbsolutePath() + "\\";
+            String storedPath = absolutePath + currentDate + fileExt;
+            file.transferTo(new File(storedPath));
+            log.info("파일 저장 경로: " + storedPath);
+            //byte[] bytes = file.getBytes();
+            //dto.setImage(bytes);
         }
         return goodsService.register(dto);
     }

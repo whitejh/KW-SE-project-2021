@@ -1,6 +1,7 @@
 package com.kw.kw.entity;
 
 import com.kw.kw.dto.GoodsDto;
+import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
@@ -23,8 +24,9 @@ public class Goods extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "seller_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id", nullable = true)
+    @NotNull
     private Member member;
     @Column(columnDefinition = "TEXT", nullable = false)
     private String name;
