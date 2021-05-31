@@ -1,30 +1,36 @@
 [
   {
+    "id": 1,
     "image": "https://image.msscdn.net/images/goods_img/20210316/1848166/1848166_3_500.jpg",
     "link": "",
     "linkText": "1위 커버낫"
   },
   {
+    "id": 4,
     "image": "https://image.msscdn.net/images/goods_img/20200424/1420730/1420730_1_500.jpg",
     "link": "",
     "linkText": "4위 그루브라임"
   },
   {
+    "id": 2,
     "image": "https://image.msscdn.net/images/goods_img/20190327/996177/996177_3_500.jpg",
     "link": "",
     "linkText": "2위 무신사 스탠다드"
   },
   {
+    "id": 5,
     "image": "https://image.msscdn.net/images/goods_img/20190404/1005683/1005683_5_500.jpg",
     "link": "",
     "linkText": "5위 마크 곤잘레스"
   },
   {
+    "id": 3,
     "image": "https://image.msscdn.net/images/goods_img/20181112/903340/903340_6_500.jpg",
     "link": "",
     "linkText": "3위 리"
   },
   {
+    "id": 6,
     "image": "https://image.msscdn.net/images/goods_img/20200428/1425234/1425234_2_500.jpg",
     "link": "",
     "linkText": "6위 티떠블유엔"
