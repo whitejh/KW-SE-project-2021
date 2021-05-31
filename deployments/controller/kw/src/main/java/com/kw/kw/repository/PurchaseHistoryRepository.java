@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface PurchaseHistoryRepository extends JpaRepository<PurchaseHistory, Long> {
+public interface PurchaseHistoryRepository extends JpaRepository<PurchaseHistory, String> {
     @Query(value = "select p from PurchaseHistory p where p.member.id= :member_id")
-    List<PurchaseHistory> findPurchaseHistoryByMemberId(@Param("member_id") Long MemberId);
+    List<PurchaseHistory> findPurchaseHistoryByMemberId(@Param("member_id") String MemberId);
 }

@@ -6,7 +6,7 @@ import com.kw.kw.entity.PurchaseHistory;
 import java.util.List;
 
 public interface PurchaseHistoryService {
-    List<PurchaseHistoryDto> lookupHistoryByMemberId(Long memberId);
+    List<PurchaseHistoryDto> lookupHistoryByMemberId(String memberId);
     Long buyGoods(PurchaseHistoryDto dto);
     default PurchaseHistory dtoToEntity(PurchaseHistoryDto dto){
         PurchaseHistory entity = PurchaseHistory.builder()

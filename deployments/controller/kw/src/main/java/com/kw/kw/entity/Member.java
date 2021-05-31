@@ -28,12 +28,7 @@ import java.time.LocalDateTime;
 @EntityListeners(value = {AuditingEntityListener.class})
 public class Member{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "member_id", nullable = false)
-    private String member_id;
-    @Column(name = "hashed_pw", nullable = false)
-    private String hashed_pw;
+    private String id;
     @Column(name = "phone_number")
     private String phone_number;
     @Column(name="point")

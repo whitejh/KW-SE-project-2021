@@ -38,7 +38,7 @@ public class PurchaseController {
             @ApiResponse(code = 400, message = "존재하지 않는 ID")
     })
     @GetMapping("/{id}")
-    public List<PurchaseHistoryDto> lookupHistory(@PathVariable("id") Long id)
+    public List<PurchaseHistoryDto> lookupHistory(@PathVariable("id") String id)
     {
         List<PurchaseHistoryDto> findHistory = purchaseHistoryService.lookupHistoryByMemberId(id);
         return findHistory;

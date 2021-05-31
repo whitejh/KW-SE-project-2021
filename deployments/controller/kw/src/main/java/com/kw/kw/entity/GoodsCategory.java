@@ -8,6 +8,7 @@ import com.vladmihalcea.hibernate.type.array.EnumArrayType;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -25,17 +26,10 @@ import java.util.List;
         typeClass = PostgreSQLEnumType.class
 )
 public class GoodsCategory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
-    private Long id;
-    @OneToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "goods_id")
-    private Goods goods;
-    @Column(name = "category", columnDefinition = "category")
-    @Type(type = "category")
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private Category category;
+    @EmbeddedId
+    protected GoodsCategoryPK goodsCategoryPK;
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,orphanRemoval = true)
+    @JoinColumn(name = "goods_id", insertable = false, updatable = false)
+    protected Goods goods;
 }

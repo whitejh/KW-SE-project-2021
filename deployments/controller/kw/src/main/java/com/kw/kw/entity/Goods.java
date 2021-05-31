@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Blob;
 
 @Entity
@@ -17,11 +18,14 @@ import java.sql.Blob;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Goods extends BaseEntity {
+@Data
+public class Goods extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "seller_id")
+    private Member member;
     @Column(columnDefinition = "TEXT", nullable = false)
     private String name;
     @Column(name = "price", nullable = false)
@@ -45,5 +49,8 @@ public class Goods extends BaseEntity {
         this.view_count = view_count;
         this.description = dto.getDescription();
         this.image_blob = dto.getImage();
+    }
+    public void changeSeller(Member member){
+        this.member = member;
     }
 }

@@ -24,7 +24,7 @@ public class PurchaseHistoryServiceImpl implements PurchaseHistoryService {
     private final MemberRepository memberRepository;
     private final GoodsRepository goodsRepository;
     @Override
-    public List<PurchaseHistoryDto> lookupHistoryByMemberId(Long memberId) {
+    public List<PurchaseHistoryDto> lookupHistoryByMemberId(String memberId) {
         List<PurchaseHistoryDto> result = new ArrayList<>();
         List<PurchaseHistory> findHisotry = purchaseHistoryRepository.findPurchaseHistoryByMemberId(memberId);
         for(PurchaseHistory p : findHisotry){

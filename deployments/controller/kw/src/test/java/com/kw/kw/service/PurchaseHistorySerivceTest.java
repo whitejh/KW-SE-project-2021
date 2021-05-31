@@ -46,10 +46,9 @@ public class PurchaseHistorySerivceTest {
     }
     public Member createMember(){
         Member member = Member.builder()
-                .member_id("홍길동")
+                .id("홍길동")
                 .phone_number("010-1234-5678")
                 .point(100L)
-                .hashed_pw("q1w2e3r4")
                 .address("경기도 의정부시")
                 .role(Role.BUYER)
                 .BlockStatus(false).build();

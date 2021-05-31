@@ -28,10 +28,9 @@ public class PurchaseHistoryRepositoryTest {
         String goodsName = "드라이기";
         //given
         Member member = Member.builder()
-                .member_id(memberName)
+                .id(memberName)
                 .phone_number("010-1234-5678")
                 .point(100L)
-                .hashed_pw("q1w2e3r4")
                 .address("경기도 의정부시")
                 .role(Role.BUYER)
                 .BlockStatus(false).build();
@@ -53,7 +52,7 @@ public class PurchaseHistoryRepositoryTest {
         //then
         List<PurchaseHistory> findPurchases = purchaseHistoryRepository.findAll();
         Assertions.assertEquals(findPurchases.size(), 1);
-        Assertions.assertEquals(findPurchases.get(0).getMember().getMember_id(), memberName);
+        Assertions.assertEquals(findPurchases.get(0).getMember().getId(), memberName);
         Assertions.assertEquals(findPurchases.get(0).getGoods().getName(), goodsName);
     }
     @Test
@@ -61,10 +60,9 @@ public class PurchaseHistoryRepositoryTest {
         int size = 3;
         //given
         Member member = Member.builder()
-                .member_id("AAA")
+                .id("AAA")
                 .phone_number("010-1234-5678")
                 .point(100L)
-                .hashed_pw("q1w2e3")
                 .address("AAA")
                 .role(Role.BUYER)
                 .BlockStatus(false).build();

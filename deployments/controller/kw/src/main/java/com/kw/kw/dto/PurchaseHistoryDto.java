@@ -17,8 +17,8 @@ public class PurchaseHistoryDto implements Serializable {
     private String content;
     @ApiModelProperty(notes = "상품의 평점", required = true, example = "3")
     private Long rating;
-    @ApiModelProperty(notes = "상품을 구매할 멤버의 ID", required = true, example = "1")
-    private Long memberId;
+    @ApiModelProperty(notes = "상품을 구매할 멤버의 ID", required = true, example = "AAA@kw.ac.kr")
+    private String memberId;
     @ApiModelProperty(notes = "상품의 ID", required = true, example = "2")
     private Long goodsId;
 }

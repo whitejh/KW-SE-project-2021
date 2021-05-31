@@ -27,7 +27,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     @Transactional
-    public Long updateById(Long id, MemberDto dto) throws IllegalArgumentException{
+    public String updateById(String id, MemberDto dto) throws IllegalArgumentException{
         Optional<Member> member = Optional.ofNullable(memberRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버 ID입니다.")));
         return member.get().getId();
@@ -42,7 +42,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberDto findById(Long id) {
+    public MemberDto findById(String id) {
         Optional<Member> findMember = Optional.ofNullable(memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버 ID입니다.")));
         return EntityToDto(findMember.get());

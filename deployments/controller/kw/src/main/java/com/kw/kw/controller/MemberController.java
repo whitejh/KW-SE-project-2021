@@ -51,7 +51,7 @@ public class MemberController {
             @ApiResponse(code = 400, message = "존재하지 않는 ID")
     })
     @PutMapping("/{id}")
-    public ResponseEntity updateById(@PathVariable @RequestParam Long id,
+    public ResponseEntity updateById(@PathVariable @RequestParam String id,
                                      @ModelAttribute MemberDto dto)
     {
         memberService.updateById(id, dto);
@@ -66,7 +66,7 @@ public class MemberController {
             @ApiResponse(code = 400, message = "존재하지 않는 ID")
     })
     @GetMapping("/{id}")
-    public MemberDto lookupMemberById(@PathVariable @RequestParam Long id)
+    public MemberDto lookupMemberById(@PathVariable @RequestParam String id)
     {
         return memberService.findById(id);
     }

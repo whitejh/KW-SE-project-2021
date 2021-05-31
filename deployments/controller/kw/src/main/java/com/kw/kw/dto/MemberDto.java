@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 public class MemberDto implements Serializable{
     @ApiModelProperty(notes = "멤버의 ID")
-    private Long id;
+    private String id;
     @ApiModelProperty(notes = "멤버의 이름")
     private String member_id;
     @ApiModelProperty(notes = "멤버의 비밀번호")
