@@ -40,17 +40,15 @@ public class Goods extends BaseEntity implements Serializable {
     @ColumnDefault("0")
     private Long view_count;
 
-    @Lob
-    @Column(name="image_blob")
-    @Type(type="org.hibernate.type.BinaryType")
-    private byte[] image_blob;
+    @Column(name = "image", nullable = true)
+    private String imagePath;
 
     public void update(GoodsDto dto, Long view_count){
         this.name = dto.getName();
         this.price = dto.getPrice();
         this.view_count = view_count;
         this.description = dto.getDescription();
-        this.image_blob = dto.getImage();
+        this.imagePath = dto.getImagePath();
     }
     public void changeSeller(Member member){
         this.member = member;

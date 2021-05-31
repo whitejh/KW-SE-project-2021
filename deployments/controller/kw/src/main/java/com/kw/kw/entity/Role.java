@@ -2,6 +2,6 @@ package com.kw.kw.entity;
 
 public enum Role {
     ADMIN,
-    BUYER,
+    CONSUMER,
     SELLER
 }

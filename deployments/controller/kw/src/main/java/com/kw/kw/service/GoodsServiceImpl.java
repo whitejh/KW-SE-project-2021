@@ -58,7 +58,7 @@ public class GoodsServiceImpl implements GoodsService{
                 .name(findEntity.getName())
                 .price(findEntity.getPrice())
                 .description(findEntity.getDescription())
-                .image(findEntity.getImage_blob()).build();
+                .imagePath(findEntity.getImagePath()).build();
         findEntity.update(dto, dto.getView_count());
         return dto;
     }
@@ -72,7 +72,7 @@ public class GoodsServiceImpl implements GoodsService{
         .price(g.getPrice())
         .view_count(g.getView_count())
         .description(g.getDescription())
-                .image(g.getImage_blob()).build()));
+                .imagePath(g.getImagePath()).build()));
         return findGoodsDtos;
     }
 }

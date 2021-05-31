@@ -81,21 +81,22 @@ public class GoodsController {
     @PostMapping("/goods")
     public Long register(@ModelAttribute GoodsDto dto,
                          @Nullable @RequestParam(value="file", required = false) MultipartFile file) throws IOException {
+        String storedPath = null;
         if(null == file){
             log.info("register : 인자로 넘어온 파일이 없습니다.");
         }
         else{
             log.info("--------file-------");
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-            String currentDate = simpleDateFormat.format(new Date());
+            Long nano = System.currentTimeMillis();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmSS.sss");
+            String currentDate = simpleDateFormat.format(nano);
             String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
             String absolutePath = new File("").getAbsolutePath() + "\\";
-            String storedPath = absolutePath + currentDate + fileExt;
+            storedPath = absolutePath + currentDate + fileExt;
             file.transferTo(new File(storedPath));
             log.info("파일 저장 경로: " + storedPath);
-            //byte[] bytes = file.getBytes();
-            //dto.setImage(bytes);
         }
+        dto.setImagePath(storedPath);
         return goodsService.register(dto);
     }
 
@@ -120,8 +121,8 @@ public class GoodsController {
         }
         else{
             log.info("--------file-------");
-            byte[] bytes = file.getBytes();
-            updateDto.setImage(bytes);
+            //byte[] bytes = file.getBytes();
+            //updateDto.setImage(bytes);
         }
         return goodsService.updateById(id, updateDto);
     }

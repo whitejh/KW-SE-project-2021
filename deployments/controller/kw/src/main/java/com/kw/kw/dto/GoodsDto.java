@@ -25,6 +25,6 @@ public class GoodsDto implements Serializable {
     private String description;
     @ApiModelProperty(notes = "조회수")
     private Long view_count; //입력으로 들어오지는 않지만, 보내주어야 하는 데이터
-    @ApiModelProperty(notes = "상품의 이미지")
-    private byte[] image;
+    @ApiModelProperty(notes = "상품의 이미지 경로")
+    private String imagePath;
 }
