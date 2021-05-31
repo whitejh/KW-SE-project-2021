@@ -1,5 +1,6 @@
 <template>
   <section class="slide1">
+    <h1>인기 상품</h1>
     <div class="wrap-slick1">
       <div ref="slick" class="slick1">
         <template v-for="banner in banners">
@@ -26,12 +27,13 @@
 
               <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="zoomIn">
                 <!-- Button -->
-                <a
-                  href="product.html"
+                <router-link
+                  :to="{ name: 'shop' }"
+                  tag="li"
                   class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4"
                 >
-                  Shop Now
-                </a>
+                  <a> Shop Now</a>
+                </router-link>
               </div>
             </div>
           </div>
@@ -68,3 +70,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h1 {
+  text-align: center;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+</style>

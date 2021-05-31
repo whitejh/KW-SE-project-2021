@@ -7,10 +7,10 @@ export default {
   async getFeaturedProducts() {
     return http.get('api/featured-product.json');
   },
-  async getProducts(page = 1, priceRange = null) {
-    return http.get('api/products.json', {
-      page,
-      priceRange,
-    });
+  async getProducts() {
+    return http.get('api/products.json', {});
+  },
+  async getProducts1() {
+    return http.get('api/products1.json', {});
   },
 };

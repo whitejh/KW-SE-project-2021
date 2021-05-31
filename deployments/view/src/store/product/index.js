@@ -20,6 +20,9 @@ export default {
     setProducts(state, products) {
       state.products = [].concat(products);
     },
+    setProducts1(state, products) {
+      state.products = [].concat(products);
+    },
     setTotalProducts(state, totalCount) {
       state.totalProducts = totalCount;
     },
@@ -42,9 +45,18 @@ export default {
       commit('setFeaturedProducts', response.data);
     },
     async setProducts({ commit, state }, page = 0) {
+      //반팔
       const response = await productApi.getProducts(page, state.priceRange);
 
       commit('setProducts', response.data.products);
+      commit('setTotalProducts', response.data.total);
+      commit('setPage', page);
+    },
+    async setProducts1({ commit, state }, page = 0) {
+      // 셔츠
+      const response = await productApi.getProducts1(page, state.priceRange);
+
+      commit('setProducts1', response.data.products1);
       commit('setTotalProducts', response.data.total);
       commit('setPage', page);
     },

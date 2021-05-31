@@ -4,7 +4,7 @@
       <form class="form" @submit.prevent="submitForm">
         <div>
           <label for="username">아이디 </label>
-          <input id="username" v-model="username" type="text" />
+          <input id="username" v-model="username" type="text" placeholder="Enter email" />
           <p class="validation-text">
             <span v-if="!isUsernameValid && username" class="warning">
               Please enter an email address
@@ -13,9 +13,16 @@
         </div>
         <div>
           <label for="password">비밀번호 </label>
-          <input id="password" v-model="password" type="text" />
+          <input id="password" v-model="password" type="text" placeholder="password" />
         </div>
-        <button :disabled="!isUsernameValid || !password" type="submit" class="btn">
+        <button
+          :disabled="!isUsernameValid || !password"
+          type="submit"
+          class="btn"
+          router-link
+          to="/login"
+          @click="OK"
+        >
           로그인
         </button>
       </form>
@@ -65,6 +72,20 @@ export default {
         this.initForm();
       }
     },
+    OK() {
+      alert('메인페이지로 이동합니다');
+      this.$router.push('/home');
+      // if (this.$cookies.isKey('CheckDuplicatedEmail') == true) {
+      //   if (this.name != '')
+      //     if (this.password != '') {
+      //       alert('Success to Make New Account');
+      //       this.$router.push('/login');
+      //     } else alert('Please input password');
+      //   else alert('Please input name');
+      // } else {
+      //   alert('Check email first');
+      // }
+    },
     initForm() {
       this.username = '';
       this.password = '';
@@ -74,11 +95,8 @@ export default {
 </script>
 
 <style scoped>
-.btn {
-  color: white;
-}
 body {
-  background: #f7f6f9;
+  background: #b8b3e7;
 }
 .app {
   position: relative;
@@ -110,13 +128,6 @@ a:hover {
   padding: 0 5px;
   width: 100%;
 }
-/*--- HEADER ---*/
-.page-header {
-  font-size: 45px;
-  font-weight: 600;
-  color: #456155;
-  padding: 30px 5px 15px;
-}
 
 /*--- FORM ---*/
 .form-container {
@@ -136,18 +147,6 @@ a:hover {
 }
 .form-wrapper-sm .page-header {
   padding: 0px 0 20px;
-}
-.form {
-  width: 460px;
-  height: 100%;
-}
-.form .validation-text {
-  margin-top: -0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
 }
 .form label {
   width: 100%;
@@ -194,6 +193,7 @@ a:hover {
 .warning {
   color: #ff4057;
 }
+
 html,
 body {
   height: 100%;
@@ -240,5 +240,4 @@ button {
   box-sizing: border-box;
   font-family: 'Spoqa Han Sans', 'Sans-serif';
 }
-</styles>
 </style>
