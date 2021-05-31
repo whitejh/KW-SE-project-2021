@@ -19,6 +19,8 @@ public interface PurchaseHistoryService {
         PurchaseHistoryDto dto = PurchaseHistoryDto.builder()
                 .content(entity.getContent())
                 .rating(entity.getRating())
+                .goodsId(entity.getGoods().getId())
+                .memberId(entity.getMember().getId())
                 .build();
         return dto;
     }

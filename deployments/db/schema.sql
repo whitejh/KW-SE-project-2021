@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS public.goods_category
 (
     goods_id bigint NOT NULL,
     category category,
-    PRIMARY KEY (goods_id, category),
+    PRIMARY KEY (goods_id),
     FOREIGN KEY (goods_id)
         REFERENCES public.goods (id) MATCH SIMPLE
         ON UPDATE CASCADE

@@ -26,10 +26,17 @@ import java.util.List;
         typeClass = PostgreSQLEnumType.class
 )
 public class GoodsCategory {
-    @EmbeddedId
-    protected GoodsCategoryPK goodsCategoryPK;
-
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,orphanRemoval = true)
-    @JoinColumn(name = "goods_id", insertable = false, updatable = false)
-    protected Goods goods;
+    @Id
+    @Column(name = "goods_id", insertable = false, updatable = false)
+    private Long id;
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name = "goods_id", updatable = false)
+    private Goods goods;
+    @Column(name = "category", columnDefinition = "category")
+    @Type(type = "category")
+    @Enumerated(EnumType.STRING)
+    private Category category;
+    public void updateCategory(Category category){
+        this.category = category;
+    }
 }
