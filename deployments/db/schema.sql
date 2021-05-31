@@ -1,5 +1,5 @@
 CREATE TYPE public.role AS ENUM
-    ('ADMIN', 'BUYER', 'SELLER');
+    ('ADMIN', 'CONSUMER', 'SELLER');
 
 CREATE TABLE IF NOT EXISTS public.member
 (
@@ -89,10 +89,10 @@ CREATE TYPE public.order_status AS ENUM
 
 CREATE TABLE IF NOT EXISTS public.order_
 (
-    id bigserial NOT NULL,
-    goods_id bigint NOT NULL,
-    consumer_id text NOT NULL,
-    status order_status NOT NULL,
+    id          bigserial    NOT NULL,
+    goods_id    bigint       NOT NULL,
+    consumer_id text         NOT NULL,
+    status      order_status NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (goods_id)
         REFERENCES public.goods (id) MATCH SIMPLE
