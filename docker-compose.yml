@@ -48,7 +48,7 @@ services:
     ports:
       - "8080"
     volumes:
-      - images:/var/lib/kw/images
+      - ./images:/var/lib/kw/images
     labels:
       - "traefik.http.middlewares.strip-controller.stripprefix.prefixes=/_api"
       - "traefik.http.routers.controller.rule=PathPrefix(`/_api`)"
@@ -58,7 +58,7 @@ services:
     ports:
       - "8080"
     volumes:
-      - images:/var/lib/kw/images
+      - ./images:/var/lib/kw/images
     labels:
       - "traefik.http.routers.view.rule=PathPrefix(`/shop`)"
 

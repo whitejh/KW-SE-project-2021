@@ -1,20 +1,15 @@
 package com.kw.kw.controller;
 
-import ch.qos.logback.classic.Logger;
 import com.kw.kw.dto.GoodsDto;
-import com.kw.kw.dto.MemberDto;
 import com.kw.kw.dto.PurchaseHistoryDto;
-import com.kw.kw.repository.GoodsRepository;
 import com.kw.kw.service.GoodsServiceImpl;
 import com.kw.kw.service.MemberServiceImpl;
-import com.kw.kw.service.PurchaseHistoryService;
 import com.kw.kw.service.PurchaseHistoryServiceImpl;
-import com.kw.kw.util.FileHandler;
+import com.kw.kw.util.FileUploadProperties;
 import com.sun.istack.Nullable;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +29,7 @@ public class GoodsController {
     private final GoodsServiceImpl goodsService;
     private final MemberServiceImpl memberService;
     private final PurchaseHistoryServiceImpl purchaseHistoryService;
+    private final FileUploadProperties fileUploadProperties;
 
     @ResponseStatus(HttpStatus.BAD_REQUEST) //응답 상태코드를 설정할 수 있다.
     @ExceptionHandler(value = IllegalArgumentException.class)
@@ -89,7 +83,7 @@ public class GoodsController {
         }
         else{
             log.info("--------file-------");
-            storedPath = FileHandler.makeStoredPath(file.getOriginalFilename()
+            storedPath = fileUploadProperties.makeStoredPath(file.getOriginalFilename()
                     .substring(file.getOriginalFilename().lastIndexOf('.')));
             file.transferTo(new File(storedPath));
             log.info("파일 저장 경로: " + storedPath);
@@ -120,7 +114,7 @@ public class GoodsController {
         }
         else{
             log.info("--------file-------");
-            storedPath = FileHandler.makeStoredPath(file.getOriginalFilename()
+            storedPath = fileUploadProperties.makeStoredPath(file.getOriginalFilename()
                     .substring(file.getOriginalFilename().lastIndexOf('.')));
             file.transferTo(new File(storedPath));
             log.info("파일 저장 경로: " + storedPath);
