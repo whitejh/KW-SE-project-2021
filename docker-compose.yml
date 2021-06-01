@@ -19,13 +19,6 @@ services:
       PGADMIN_DEFAULT_PASSWORD: "${PGA_PW}"
     labels:
       - "traefik.enable=false"
-  session_db:
-    image: redis
-    ports: [ 6379:6379 ]
-    command:
-      - "--appendonly yes"
-    labels:
-      - "traefik.enable=false"
   gw:
     image: traefik:v2.4
     command:
@@ -54,8 +47,22 @@ services:
   controller:
     build: ./deployments/controller/kw
     depends_on: [ db ]
-    ports: [ 80:8080 ]
+    ports:
+      - "8080"
+    volumes:
+      - images:/var/lib/kw/images
     labels:
       - "traefik.http.middlewares.strip-controller.stripprefix.prefixes=/_api"
       - "traefik.http.routers.controller.rule=PathPrefix(`/_api`)"
       - "traefik.http.routers.controller.middlewares=strip-controller"
+  view:
+    build: ./deployments/view
+    ports:
+      - "8080"
+    volumes:
+      - images:/var/lib/kw/images
+    labels:
+      - "traefik.http.routers.view.rule=PathPrefix(`/shop`)"
+
+volumes:
+  images:

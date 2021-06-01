@@ -12,6 +12,7 @@ import ProductCreate from './views/ProductCreate.vue';
 import Cart from './views/Cart.vue';
 import MyPage from './views/MyPage.vue';
 import MyInfo from './components/mypage/MyInfo.vue';
+import SellList from './components/mypage/SellList.vue';
 
 Vue.use(Router);
 
@@ -78,6 +79,11 @@ export default new Router({
       path: '/myinfo',
       name: 'myinfo',
       component: MyInfo,
+    },
+    {
+      path: '/selllist',
+      name: 'selllist',
+      component: SellList,
     },
   ],
 });

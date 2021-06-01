@@ -2,6 +2,7 @@ export default {
   namespaced: true,
   state: {
     items: [], // 장바구니에 넣은 상품을 담은 배열, 상품정보가 담긴 json저장
+    lists: [],
   },
   getters: {
     totalPrice(state) {
@@ -43,6 +44,9 @@ export default {
     clearCart(state) {
       state.items = [];
     },
+    addList(state) {
+      state.lists = state.items;
+    },
   },
   actions: {
     addItem({ commit }, item) {
@@ -65,6 +69,9 @@ export default {
     },
     clearCart({ commit }) {
       commit('clearCart');
+    },
+    addList({ commit }) {
+      commit('addList');
     },
   },
 };

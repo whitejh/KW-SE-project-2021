@@ -9,10 +9,12 @@ import com.kw.kw.service.GoodsServiceImpl;
 import com.kw.kw.service.MemberServiceImpl;
 import com.kw.kw.service.PurchaseHistoryService;
 import com.kw.kw.service.PurchaseHistoryServiceImpl;
+import com.kw.kw.util.FileHandler;
 import com.sun.istack.Nullable;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -81,21 +83,18 @@ public class GoodsController {
     @PostMapping("/goods")
     public Long register(@ModelAttribute GoodsDto dto,
                          @Nullable @RequestParam(value="file", required = false) MultipartFile file) throws IOException {
+        String storedPath = null;
         if(null == file){
             log.info("register : 인자로 넘어온 파일이 없습니다.");
         }
         else{
             log.info("--------file-------");
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-            String currentDate = simpleDateFormat.format(new Date());
-            String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
-            String absolutePath = new File("").getAbsolutePath() + "\\";
-            String storedPath = absolutePath + currentDate + fileExt;
+            storedPath = FileHandler.makeStoredPath(file.getOriginalFilename()
+                    .substring(file.getOriginalFilename().lastIndexOf('.')));
             file.transferTo(new File(storedPath));
             log.info("파일 저장 경로: " + storedPath);
-            //byte[] bytes = file.getBytes();
-            //dto.setImage(bytes);
         }
+        dto.setImagePath(storedPath);
         return goodsService.register(dto);
     }
 
@@ -115,13 +114,16 @@ public class GoodsController {
     public Long update(@PathVariable Long id,
                        @ModelAttribute GoodsDto updateDto,
                        @Nullable @RequestParam(value="file", required = false) MultipartFile file) throws IOException {
+        String storedPath = null;
         if(null == file){
             log.info("update : 인자로 넘어온 파일이 없습니다.");
         }
         else{
             log.info("--------file-------");
-            byte[] bytes = file.getBytes();
-            updateDto.setImage(bytes);
+            storedPath = FileHandler.makeStoredPath(file.getOriginalFilename()
+                    .substring(file.getOriginalFilename().lastIndexOf('.')));
+            file.transferTo(new File(storedPath));
+            log.info("파일 저장 경로: " + storedPath);
         }
         return goodsService.updateById(id, updateDto);
     }

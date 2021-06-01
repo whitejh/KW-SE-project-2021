@@ -44,7 +44,7 @@ public class MemberController {
             @ApiImplicitParam(name = "phone_number", value = "업데이트할 멤버의 전화번호", required = true),
             @ApiImplicitParam(name = "password", value = "업데이트할 멤버의 비밀번호", required = true),
             @ApiImplicitParam(name = "point", value = "업데이트할 멤버의 포인트", required = true),
-            @ApiImplicitParam(name = "role", value = "업데이트할 멤버의 역할 (ADMIN, BUYER, SELLER)", required = true)
+            @ApiImplicitParam(name = "role", value = "업데이트할 멤버의 역할 (ADMIN, CONSUMER, SELLER)", required = true)
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "수정 성공"),
@@ -66,7 +66,7 @@ public class MemberController {
             @ApiResponse(code = 400, message = "존재하지 않는 ID")
     })
     @GetMapping("/{id}")
-    public MemberDto lookupMemberById(@PathVariable @RequestParam String id)
+    public MemberDto lookupMemberById(@PathVariable String id)
     {
         return memberService.findById(id);
     }

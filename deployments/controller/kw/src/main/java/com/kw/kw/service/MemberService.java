@@ -15,6 +15,7 @@ public interface MemberService {
                 .BlockStatus(dto.getBlockStatus())
                 .phone_number(dto.getPhone_number())
                 .point(dto.getPoint())
+                .role(dto.getRole())
                 .build();
         return entity;
     }
@@ -25,6 +26,7 @@ public interface MemberService {
                 .BlockStatus(entity.getBlockStatus())
                 .phone_number(entity.getPhone_number())
                 .point(entity.getPoint())
+                .role(entity.getRole())
                 .build();
         return dto;
     }
