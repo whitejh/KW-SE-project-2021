@@ -2,14 +2,12 @@ version: '3.7'
 
 services:
   db:
-    image: postgres
+    build: ./deployments/db
     restart: always
     environment:
       POSTGRES_PASSWORD: "${PG_PW}"
     labels:
       - "traefik.enable=false"
-    volumes:
-      - ./deployments/db/dummy_data:/var/lib/postgresql/dummydata
   db_admin:
     image: dpage/pgadmin4
     depends_on: [ db ]
