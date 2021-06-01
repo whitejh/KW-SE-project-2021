@@ -67,6 +67,7 @@ public class GoodsServiceImpl implements GoodsService{
         GoodsDto dto = GoodsDto.builder()
                 .id(findEntity.getId())
                 .view_count(findEntity.getView_count() + 1)
+                .sellerId(findEntity.getMember().getId())
                 .name(findEntity.getName())
                 .category(findCategory.getCategory())
                 .price(findEntity.getPrice())
@@ -84,6 +85,7 @@ public class GoodsServiceImpl implements GoodsService{
         .name(g.getName())
         .price(g.getPrice())
         .view_count(g.getView_count())
+                .sellerId(g.getMember().getId())
         .description(g.getDescription())
                 .imagePath(g.getImagePath()).build()));
         return findGoodsDtos;

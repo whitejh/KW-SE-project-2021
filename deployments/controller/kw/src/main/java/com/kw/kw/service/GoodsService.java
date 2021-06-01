@@ -41,6 +41,7 @@ public interface GoodsService {
         GoodsDto dto = GoodsDto.builder()
                 .id(entity.getId())
                 .price(entity.getPrice())
+                .sellerId(entity.getMember().getId())
                 .name(entity.getName())
                 .description(entity.getDescription())
                 .view_count(entity.getView_count())
