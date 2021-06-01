@@ -6,11 +6,11 @@ CREATE TABLE IF NOT EXISTS public.member
     id           text                     NOT NULL,
     email        text                     NOT NULL,
     phone_number text,
-    created_at   timestamp with time zone NOT NULL,
-    point        bigint                   NOT NULL,
+    created_at   timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    point        bigint                   NOT NULL DEFAULT 0,
     address      text,
-    block_status boolean                  NOT NULL,
-    role         role                     NOT NULL,
+    block_status boolean                  NOT NULL DEFAULT FALSE,
+    role         role                     NOT NULL DEFAULT 'CONSUMER',
     PRIMARY KEY (id)
 );
 
