@@ -43,6 +43,7 @@ services:
     environment:
       LOG_LEVEL: ${LOG_LEVEL}
       OAUTHLIB_INSECURE_TRANSPORT: 1
+      PG_PW: "${PG_PW}"
     labels:
       - "traefik.http.middlewares.strip-auth.stripprefix.prefixes=/auth"
       - "traefik.http.routers.auth.rule=PathPrefix(`/auth`)"
