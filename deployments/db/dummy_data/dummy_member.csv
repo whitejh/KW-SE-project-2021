@@ -1,7 +1,7 @@
-id,phone_number,create_at,point,address,block_status,role
-david,010-1234-5678,2021-05-28,1000,address1,FALSE,CONSUMER
-andrew,010-1234-5678,2021-05-28,1000,address2,FALSE,CONSUMER
-john,010-1234-5678,2021-05-28,1000,address3,FALSE,CONSUMER
-chuk,010-1234-5678,2021-05-28,1000,address4,FALSE,CONSUMER
-ahnna,010-1234-5678,2021-05-28,1000,address5,FALSE,CONSUMER
-jessy,010-1234-5678,2021-05-28,1000,address6,FALSE,CONSUMER
+id,email,phone_number,create_at,point,address,block_status,role
+david,david@naver.com,010-1234-5678,2021-05-28,1000,address1,FALSE,CONSUMER
+andrew,andrew@gmail.com,010-1234-5678,2021-05-28,1000,address2,FALSE,CONSUMER
+john,john@hanmail.net,010-1234-5678,2021-05-28,1000,address3,FALSE,CONSUMER
+chuk,chuk@kw.ac.kr,010-1234-5678,2021-05-28,1000,address4,FALSE,CONSUMER
+ahnna,ahnna@naver.com,010-1234-5678,2021-05-28,1000,address5,FALSE,CONSUMER
+jessy,jessy@gmail.com,010-1234-5678,2021-05-28,1000,address6,FALSE,CONSUMER

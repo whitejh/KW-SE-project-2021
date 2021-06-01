@@ -4,6 +4,7 @@ services:
   db:
     build: ./deployments/db
     restart: always
+    ports: [ 15432:5432 ]
     environment:
       POSTGRES_PASSWORD: "${PG_PW}"
     labels:
@@ -27,6 +28,10 @@ services:
       - "--providers.file.filename=/etc/traefik/config.yml"
       - "--entrypoints.websecure.address=:443"
       - "--entrypoints.websecure.http.tls=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
     ports: [ 443:443 ]
     volumes:
       - "./deployments/gw/certs:/etc/certs:ro"
@@ -38,6 +43,7 @@ services:
     environment:
       LOG_LEVEL: ${LOG_LEVEL}
       OAUTHLIB_INSECURE_TRANSPORT: 1
+      PG_PW: "${PG_PW}"
     labels:
       - "traefik.http.middlewares.strip-auth.stripprefix.prefixes=/auth"
       - "traefik.http.routers.auth.rule=PathPrefix(`/auth`)"

@@ -1,12 +1,13 @@
 import time
-from typing import Optional
 
 import jwt
 import requests
 from cryptography.x509 import load_pem_x509_certificate
-from fastapi import FastAPI, Request, Cookie
+from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse
 from requests_oauthlib import OAuth2Session
+
+from model import session, Member
 
 app = FastAPI(root_path='/auth')
 
@@ -22,11 +23,6 @@ authorization_url, state = oauth.authorization_url(
     # access_type and prompt are Google specific extra
     # parameters.
     access_type="offline", prompt="select_account")
-
-
-@app.get("/whoami")
-def auth_whoami(kw_id_token: Optional[str] = Cookie(None)):
-    return {'email': r.get(kw_id_token) if kw_id_token else repr(kw_id_token)}
 
 
 @app.get("/session")
@@ -48,12 +44,17 @@ def auth_session(request: Request):
 
     if payload['iat'] - 60 < time.time() < payload['exp']:
         if payload['email_verified']:
-            # TODO if this is new or not
-            # r.set(payload['sub'], payload['email'])
-            response = RedirectResponse('/goods/#')
-            # TODO hash id and concatante it with the id
-            response.set_cookie('kw_access_token', token['access_token'], max_age=token['expires_in'])
-            response.set_cookie('kw_id_token', payload['sub'], max_age=token['expires_in'])
+            response = RedirectResponse('/shop/goods/#')
+
+            id_ = payload['sub']
+
+            user = session.query(Member).filter(Member.id == id_).first()
+
+            if not user:
+                session.add(Member(id=id_, email=payload['email']))
+                session.commit()
+
+            response.set_cookie('kw_id', id_, max_age=token['expires_in'])
             return response
         else:
             raise jwt.PyJWTError('email_verified must be true')
