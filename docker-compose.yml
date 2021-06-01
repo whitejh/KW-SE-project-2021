@@ -4,6 +4,7 @@ services:
   db:
     build: ./deployments/db
     restart: always
+    ports: [ 15432:5432 ]
     environment:
       POSTGRES_PASSWORD: "${PG_PW}"
     labels:
