@@ -4,6 +4,7 @@ CREATE TYPE public.role AS ENUM
 CREATE TABLE IF NOT EXISTS public.member
 (
     id           text                     NOT NULL,
+    email        text                     NOT NULL,
     phone_number text,
     created_at   timestamp with time zone NOT NULL,
     point        bigint                   NOT NULL,
