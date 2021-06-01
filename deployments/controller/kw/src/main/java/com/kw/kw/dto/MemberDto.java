@@ -16,10 +16,6 @@ import java.io.Serializable;
 public class MemberDto implements Serializable{
     @ApiModelProperty(notes = "멤버의 ID")
     private String id;
-    @ApiModelProperty(notes = "멤버의 이름")
-    private String member_id;
-    @ApiModelProperty(notes = "멤버의 비밀번호")
-    private String password;
     @ApiModelProperty(notes = "멤버의 전화번호")
     private String phone_number;
     @ApiModelProperty(notes = "멤버의 보유 포인트")

@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService{
         if(!memberRepository.findById(member.getId()).isEmpty())
             throw new IllegalArgumentException("이미 존재하는 ID입니다.");
         memberRepository.save(member);
-        return dto.getMember_id();
+        return dto.getId();
     }
 
     @Override
