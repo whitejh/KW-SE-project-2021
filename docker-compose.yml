@@ -28,6 +28,10 @@ services:
       - "--providers.file.filename=/etc/traefik/config.yml"
       - "--entrypoints.websecure.address=:443"
       - "--entrypoints.websecure.http.tls=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
     ports: [ 443:443 ]
     volumes:
       - "./deployments/gw/certs:/etc/certs:ro"
